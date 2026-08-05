@@ -71,12 +71,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="stats-strip">
-        <div className="site-container stats-grid">
-          <div><strong>5 000</strong><span>стартових монет</span></div>
-          <div><strong>7 днів</strong><span>серія нагород</span></div>
-          <div><strong>0 ₴</strong><span>реальних ставок</span></div>
-          <div><strong>100%</strong><span>гра заради розваги</span></div>
+      <section className="perks-strip" aria-label="Переваги CASTA">
+        <div className="site-container perks-grid">
+          <article className="perk-banner perk-banner-gold">
+            <div className="perk-icon" aria-hidden="true"><Coins size={27} /></div>
+            <div className="perk-copy">
+              <span className="perk-kicker">Welcome pack</span>
+              <strong>5 000</strong>
+              <p>стартових монет</p>
+            </div>
+            <span className="perk-badge">У подарунок</span>
+          </article>
+
+          <article className="perk-banner perk-banner-coral">
+            <div className="perk-icon" aria-hidden="true"><Flame size={27} /></div>
+            <div className="perk-copy">
+              <span className="perk-kicker">Daily streak</span>
+              <strong>7 днів</strong>
+              <p>серія нагород</p>
+            </div>
+            <span className="perk-badge">Щодня більше</span>
+          </article>
+
+          <article className="perk-banner perk-banner-lime">
+            <div className="perk-icon" aria-hidden="true"><Sparkles size={27} /></div>
+            <div className="perk-copy">
+              <span className="perk-kicker">Play for fun</span>
+              <strong>100%</strong>
+              <p>гра заради розваги</p>
+            </div>
+            <span className="perk-badge">Social casino</span>
+          </article>
         </div>
       </section>
 
