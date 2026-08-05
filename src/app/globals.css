@@ -731,7 +731,7 @@ a {
 
 .game-art-with-image {
   min-height: 0;
-  aspect-ratio: 1000 / 462;
+  aspect-ratio: 1000 / 553;
   background: #0a1008;
 }
 
@@ -1627,8 +1627,8 @@ a {
   .perk-banner { min-height: 142px; }
   .games-grid { grid-template-columns: 1fr 1fr; }
   .home-games .game-card-link:first-child { grid-column: span 2; }
-  .home-games .game-card-link:first-child .game-card { display: grid; grid-template-columns: 1fr 1fr; }
-  .home-games .game-card-link:first-child .game-art { min-height: 310px; }
+  .home-games .game-card-link:first-child .game-card { display: block; }
+  .home-games .game-card-link:first-child .game-art-with-image { min-height: 0; }
   .club-grid { grid-template-columns: 1fr; gap: 46px; }
   .reward-preview { overflow-x: auto; grid-template-columns: repeat(7, minmax(92px, 1fr)); }
   .wheel-layout, .profile-layout, .reward-hero, .shop-layout { grid-template-columns: 1fr; }
@@ -1666,7 +1666,7 @@ a {
   .games-grid, .catalog-grid, .shop-grid, .profile-panel-grid { grid-template-columns: 1fr; }
   .home-games .game-card-link:first-child { grid-column: auto; }
   .home-games .game-card-link:first-child .game-card { display: block; }
-  .home-games .game-card-link:first-child .game-art { min-height: 220px; }
+  .home-games .game-card-link:first-child .game-art-with-image { min-height: 0; }
   .page-shell { padding-block: 52px 80px; }
   .catalog-toolbar { align-items: flex-start; flex-direction: column; }
   .game-page-head { align-items: flex-start; flex-direction: column; }
