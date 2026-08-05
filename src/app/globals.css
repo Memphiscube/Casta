@@ -729,6 +729,22 @@ a {
     linear-gradient(145deg, var(--card-dark), #100b19);
 }
 
+.game-art-with-image {
+  min-height: 0;
+  aspect-ratio: 1000 / 462;
+  background: #0a1008;
+}
+
+.game-art-image {
+  object-fit: cover;
+  transition: transform 360ms ease, filter 360ms ease;
+}
+
+.game-card-link:not(.disabled):hover .game-art-image {
+  transform: scale(1.025);
+  filter: brightness(1.06);
+}
+
 .accent-lime { --card-glow: rgba(185, 247, 109, 0.24); --card-dark: #1b2a1a; --card-accent: var(--lime); }
 .accent-coral { --card-glow: rgba(255, 121, 107, 0.23); --card-dark: #321b25; --card-accent: var(--coral); }
 .accent-violet { --card-glow: rgba(167, 139, 250, 0.25); --card-dark: #251a39; --card-accent: var(--violet); }
