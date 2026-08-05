@@ -8,9 +8,9 @@ import {
   ListChecks,
   Menu,
   ShoppingBag,
-  Sparkles,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -34,10 +34,14 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-container header-inner">
         <Link href="/" className="brand" aria-label="CASTA — на головну">
-          <span className="brand-mark">
-            <Sparkles size={17} strokeWidth={2.4} />
-          </span>
-          <span>CASTA</span>
+          <Image
+            className="brand-logo"
+            src="/logo.png"
+            alt=""
+            width={911}
+            height={236}
+            aria-hidden="true"
+          />
         </Link>
 
         <nav className="desktop-nav" aria-label="Головна навігація">
