@@ -43,6 +43,7 @@ export const games: Game[] = [
     players: "Новинка сезону",
     accent: "coral",
     icon: Cherry,
+    image: "/games/cherry-club.png",
     available: false,
   },
   {
@@ -54,6 +55,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "violet",
     icon: Ghost,
+    image: "/games/moon-mansion.png",
     available: false,
   },
   {
@@ -65,6 +67,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "gold",
     icon: Gem,
+    image: "/games/gem-society.png",
     available: false,
   },
 ];
