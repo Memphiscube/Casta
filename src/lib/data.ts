@@ -17,6 +17,7 @@ export type Game = {
   players: string;
   accent: string;
   icon: LucideIcon;
+  image?: string;
   available: boolean;
 };
 
@@ -30,6 +31,7 @@ export const games: Game[] = [
     players: "1 284 онлайн",
     accent: "lime",
     icon: Banana,
+    image: "/games/jungle-wheel.png",
     available: true,
   },
   {
