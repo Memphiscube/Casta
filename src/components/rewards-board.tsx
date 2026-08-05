@@ -1,0 +1,98 @@
+"use client";
+
+import { Check, Flame, Gift, LockKeyhole } from "lucide-react";
+import { useState } from "react";
+
+import { useAuth } from "@/components/auth-provider";
+import { dailyRewards } from "@/lib/data";
+import { getSupabaseBrowserClient } from "@/lib/supabase";
+
+const GUEST_REWARD_DATE = "casta_guest_reward_date";
+
+type RewardPayload = {
+  amount: number;
+  balance: number;
+  streak: number;
+};
+
+function isRewardPayload(value: unknown): value is RewardPayload {
+  if (!value || typeof value !== "object") return false;
+  const payload = value as Record<string, unknown>;
+  return ["amount", "balance", "streak"].every((key) => typeof payload[key] === "number");
+}
+
+export function RewardsBoard() {
+  const { user, profile, setGuestBalance, refreshProfile } = useAuth();
+  const [claiming, setClaiming] = useState(false);
+  const [claimed, setClaimed] = useState(false);
+  const [message, setMessage] = useState("Наступна нагорода готова до отримання.");
+  const currentDay = Math.min(7, Math.max(1, profile.streak + 1));
+
+  async function claimReward() {
+    if (claiming || claimed) return;
+    setClaiming(true);
+
+    const supabase = getSupabaseBrowserClient();
+    if (user && supabase) {
+      const { data, error } = await supabase.rpc("claim_daily_reward");
+      if (error || !isRewardPayload(data)) {
+        setMessage(error?.message ?? "Нагорода сьогодні вже отримана.");
+        setClaiming(false);
+        return;
+      }
+      await refreshProfile();
+      setMessage(`Готово! На баланс додано ${data.amount.toLocaleString("uk-UA")} монет.`);
+    } else {
+      const today = new Date().toISOString().slice(0, 10);
+      if (window.localStorage.getItem(GUEST_REWARD_DATE) === today) {
+        setMessage("Гостьову нагороду сьогодні вже отримано. Повертайся завтра.");
+        setClaiming(false);
+        return;
+      }
+      const amount = dailyRewards[currentDay - 1].coins;
+      setGuestBalance(profile.balance + amount);
+      window.localStorage.setItem(GUEST_REWARD_DATE, today);
+      setMessage(`Готово! На баланс додано ${amount.toLocaleString("uk-UA")} монет.`);
+    }
+
+    setClaimed(true);
+    setClaiming(false);
+  }
+
+  return (
+    <div className="reward-hero">
+      <section className="reward-board">
+        <h2>Щоденна серія</h2>
+        <div className="reward-grid">
+          {dailyRewards.map(({ day, coins, icon: Icon }) => {
+            const isClaimed = day < currentDay || (day === currentDay && claimed);
+            const isCurrent = day === currentDay && !claimed;
+            return (
+              <div key={day} className={`reward-tile ${isClaimed ? "claimed" : ""} ${isCurrent ? "current" : ""}`}>
+                <span>День {day}</span>
+                {isClaimed ? <Check size={24} /> : day > currentDay ? <LockKeyhole size={22} /> : <Icon size={24} />}
+                <strong>{coins.toLocaleString("uk-UA")} 🪙</strong>
+              </div>
+            );
+          })}
+        </div>
+        <p className={claimed ? "form-message success" : "form-message"} style={{ marginTop: 20 }} aria-live="polite">
+          {message}
+        </p>
+      </section>
+
+      <aside className="streak-card">
+        <div>
+          <Flame size={34} />
+          <strong>{profile.streak}</strong>
+          <span>дні поспіль</span>
+          <p>Забирай нагороду щодня. Після сьомого дня цикл починається знову.</p>
+        </div>
+        <button type="button" className="button button-primary" disabled={claiming || claimed} onClick={claimReward}>
+          {claimed ? <Check size={18} /> : <Gift size={18} />}
+          {claiming ? "Отримуємо…" : claimed ? "Отримано" : "Забрати нагороду"}
+        </button>
+      </aside>
+    </div>
+  );
+}
