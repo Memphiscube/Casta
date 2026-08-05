@@ -1,4 +1,5 @@
-import { Coins, ShieldCheck, Sparkles } from "lucide-react";
+import { Coins, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function SiteFooter() {
@@ -7,8 +8,13 @@ export function SiteFooter() {
       <div className="site-container footer-grid">
         <div>
           <Link href="/" className="brand footer-brand">
-            <span className="brand-mark"><Sparkles size={17} /></span>
-            <span>CASTA</span>
+            <Image
+              className="brand-logo"
+              src="/logo.png"
+              alt="CASTA"
+              width={911}
+              height={236}
+            />
           </Link>
           <p className="footer-copy">
             Social casino для відпочинку, колекцій і дружнього суперництва.
