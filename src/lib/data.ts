@@ -12,8 +12,6 @@ import {
   Spade,
   Sun,
   type LucideIcon,
-  Sparkles,
-  WandSparkles,
 } from "lucide-react";
 
 export type Game = {
@@ -177,13 +175,13 @@ export const games: Game[] = [
 ];
 
 export const dailyRewards = [
-  { day: 1, coins: 250, icon: Sparkles },
-  { day: 2, coins: 350, icon: Sparkles },
-  { day: 3, coins: 500, icon: WandSparkles },
-  { day: 4, coins: 650, icon: Sparkles },
-  { day: 5, coins: 900, icon: WandSparkles },
-  { day: 6, coins: 1_250, icon: Sparkles },
-  { day: 7, coins: 2_500, icon: Gem },
+  { day: 1, coins: 250, image: "/games/jungle-wheel-coins.png", alt: "Золоті клубні монети" },
+  { day: 2, coins: 350, image: "/games/jungle-wheel-amethyst.png", alt: "Фіолетовий самоцвіт" },
+  { day: 3, coins: 500, image: "/games/jungle-wheel-treasure-chest.png", alt: "Скриня нагород" },
+  { day: 4, coins: 650, image: "/games/jungle-wheel-temple-crown.png", alt: "Золота клубна корона" },
+  { day: 5, coins: 900, image: "/games/jungle-wheel-explorer-trophy.png", alt: "Клубний трофей" },
+  { day: 6, coins: 1_250, image: "/games/jungle-wheel-jaguar-mask.png", alt: "Золота маска ягуара" },
+  { day: 7, coins: 2_500, image: "/games/cherry-symbols/diamond.png", alt: "Королівський діамант" },
 ];
 
 export const shopItems = [
