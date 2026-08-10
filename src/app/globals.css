@@ -2833,23 +2833,21 @@ a {
 .how-coin-orbit-one { width: 264px; height: 264px; }
 .how-coin-orbit-two { width: 318px; height: 205px; transform: rotate(-20deg); }
 
-.how-coin-core {
+.how-coin-art {
   position: relative;
-  width: 168px;
-  height: 168px;
-  display: grid;
-  place-items: center;
-  border: 4px solid #ffe7a5;
-  border-radius: 50%;
-  color: #43270b;
-  background:
-    radial-gradient(circle at 35% 28%, #fff1b8, transparent 24%),
-    linear-gradient(145deg, #ffe29a, #ffad42 58%, #9c5617);
-  box-shadow:
-    inset 0 0 0 8px rgba(86, 43, 7, 0.18),
-    inset 0 0 34px rgba(255, 255, 255, 0.34),
-    0 28px 70px rgba(255, 173, 66, 0.25);
-  transform: rotate(-7deg);
+  z-index: 1;
+  width: 192px;
+  height: 192px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 28px 24px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 30px rgba(255, 187, 70, 0.3));
+  animation: how-coin-float 4.2s ease-in-out infinite;
+}
+
+@keyframes how-coin-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
 }
 
 .how-currency-copy h2,
