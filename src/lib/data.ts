@@ -37,14 +37,14 @@ export const games: Game[] = [
   {
     slug: "cherry-club",
     title: "Cherry Club",
-    description: "Легкий social slot із клубними місіями та щоденними серіями.",
+    description: "Неонові слоти 5×5 із десятьма лініями та спільним балансом профілю.",
     category: "Слоти",
-    badge: "Незабаром",
-    players: "Новинка сезону",
+    badge: "Грай зараз",
+    players: "Нова гра",
     accent: "coral",
     icon: Cherry,
     image: "/games/cherry-club.png",
-    available: false,
+    available: true,
   },
   {
     slug: "moon-mansion",
