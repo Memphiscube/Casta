@@ -1,12 +1,8 @@
 "use client";
 
 import {
-  Bell,
   Cherry,
-  Clover,
   Coins,
-  Crown,
-  Gem,
   Minus,
   Plus,
   Sparkles,
@@ -30,13 +26,13 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 const bets = [50, 100, 250, 500];
 
 const symbolMeta = {
-  cherry: { label: "Вишні", Icon: Cherry },
-  clover: { label: "Конюшина", Icon: Clover },
-  bell: { label: "Дзвін", Icon: Bell },
-  crown: { label: "Корона", Icon: Crown },
-  diamond: { label: "Діамант", Icon: Gem },
-  seven: { label: "Сімка", Icon: null },
-} satisfies Record<SlotSymbolKey, { label: string; Icon: typeof Cherry | null }>;
+  cherry: { label: "Вишні", src: "/games/cherry-symbols/cherry.png" },
+  clover: { label: "Конюшина", src: "/games/cherry-symbols/clover.png" },
+  bell: { label: "Дзвін", src: "/games/cherry-symbols/bell.png" },
+  crown: { label: "Корона", src: "/games/cherry-symbols/crown.png" },
+  diamond: { label: "Діамант", src: "/games/cherry-symbols/diamond.png" },
+  seven: { label: "Сімка", src: "/games/cherry-symbols/seven.png" },
+} satisfies Record<SlotSymbolKey, { label: string; src: string }>;
 
 const paytableSymbols: SlotSymbolKey[] = ["cherry", "bell", "crown", "diamond", "seven"];
 
@@ -165,7 +161,7 @@ export function CherryClubSlots() {
 
         <div className="slot-grid" role="grid" aria-label="Ігрове поле Cherry Club, 5 рядків на 5 стовпців">
           {grid.map((symbol, index) => {
-            const { Icon, label } = symbolMeta[symbol];
+            const { src, label } = symbolMeta[symbol];
             const row = Math.floor(index / 5) + 1;
             const column = (index % 5) + 1;
             return (
@@ -176,7 +172,15 @@ export function CherryClubSlots() {
                 className={`slot-cell symbol-${symbol}${winningCells.has(index) ? " is-winning" : ""}`}
                 style={{ animationDelay: `${-(index % 5) * 45}ms` }}
               >
-                {Icon ? <Icon aria-hidden="true" /> : <span className="slot-seven" aria-hidden="true">7</span>}
+                <Image
+                  className="slot-symbol-image"
+                  src={src}
+                  alt=""
+                  width={512}
+                  height={512}
+                  sizes="(max-width: 620px) 48px, 72px"
+                  aria-hidden="true"
+                />
                 {winningCells.has(index) ? <i className="slot-win-spark" aria-hidden="true" /> : null}
               </div>
             );
@@ -186,10 +190,18 @@ export function CherryClubSlots() {
 
       <div className="slot-paytable" aria-label="Таблиця максимальних множників">
         {paytableSymbols.map((symbol) => {
-          const { Icon, label } = symbolMeta[symbol];
+          const { src, label } = symbolMeta[symbol];
           return (
             <span key={symbol} className={`symbol-${symbol}`}>
-              {Icon ? <Icon size={16} aria-hidden="true" /> : <b className="slot-seven">7</b>}
+              <Image
+                className="slot-paytable-icon"
+                src={src}
+                alt=""
+                width={512}
+                height={512}
+                sizes="18px"
+                aria-hidden="true"
+              />
               <small>{label}</small>
               <strong>×{slotPayouts[symbol][5]}</strong>
             </span>
