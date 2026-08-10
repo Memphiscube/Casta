@@ -132,7 +132,13 @@ export default function HowItWorksPage() {
             <div className="how-coin-visual" aria-hidden="true">
               <span className="how-coin-orbit how-coin-orbit-one" />
               <span className="how-coin-orbit how-coin-orbit-two" />
-              <span className="how-coin-core"><Coins size={58} /></span>
+              <Image
+                className="how-coin-art"
+                src="/games/jungle-wheel-coins.png"
+                alt=""
+                width={192}
+                height={192}
+              />
             </div>
             <div className="how-currency-copy">
               <span className="eyebrow"><ShieldCheck size={15} /> 100% віртуальна валюта</span>
