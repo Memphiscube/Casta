@@ -1136,7 +1136,7 @@ a {
   border-radius: 50%;
   overflow: hidden;
   background: conic-gradient(
-    from -22.5deg,
+    from 0deg,
     #174b32 0deg 45deg,
     #43275b 45deg 90deg,
     #805217 90deg 135deg,
@@ -1164,7 +1164,7 @@ a {
   inset: 3px;
   border-radius: 50%;
   background:
-    repeating-conic-gradient(from -22.5deg, transparent 0 44deg, rgba(255, 220, 139, 0.82) 44deg 45deg),
+    repeating-conic-gradient(from 0deg, transparent 0 44deg, rgba(255, 220, 139, 0.82) 44deg 45deg),
     radial-gradient(circle, transparent 0 57%, rgba(255, 218, 126, 0.17) 58% 59%, transparent 60%);
   pointer-events: none;
 }
