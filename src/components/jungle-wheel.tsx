@@ -159,7 +159,9 @@ export function JungleWheel() {
         <span className="play-wheel-pointer" aria-hidden="true"><Gem size={23} /></span>
         <div className="play-wheel" style={{ transform: `rotate(${rotation}deg)` }}>
           {sectors.map((sector, index) => {
-            const angle = ((index * 45 + 22.5) * Math.PI) / 180;
+            const sectorSize = 360 / sectors.length;
+            const sectorCenter = index * sectorSize + sectorSize / 2;
+            const angle = (sectorCenter * Math.PI) / 180;
             const Icon = sector.icon;
             return (
               <span
