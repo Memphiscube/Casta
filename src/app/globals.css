@@ -1229,13 +1229,16 @@ a {
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.82), 0 0 13px rgba(255, 208, 96, 0.24);
 }
 
-.wheel-label svg {
-  color: #ffe08b;
-  filter: drop-shadow(0 0 6px rgba(255, 202, 77, 0.48));
+.wheel-sector-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter:
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 7px rgba(255, 210, 105, 0.34));
 }
-
-.wheel-label:nth-of-type(2n) svg { color: #c98cff; }
-.wheel-label:nth-of-type(3n) svg { color: #b9f76d; }
 
 .wheel-label b {
   font-weight: 950;
@@ -2423,7 +2426,7 @@ a {
   .play-wheel-center { width: 88px; height: 88px; border-width: 5px; }
   .play-wheel-center svg { width: 27px; height: 27px; }
   .wheel-label { width: 50px; font-size: 13px; }
-  .wheel-label svg { width: 17px; height: 17px; }
+  .wheel-sector-icon { width: 31px; height: 31px; }
   .jungle-floater { display: none; }
   .win-message { font-size: 12px; }
   .reward-grid { grid-template-columns: repeat(2, 1fr); }
