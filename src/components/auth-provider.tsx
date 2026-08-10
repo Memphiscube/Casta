@@ -41,12 +41,16 @@ const defaultProfile: PlayerProfile = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 const GUEST_BALANCE_KEY = "casta_guest_balance";
+const supabaseConfigured = Boolean(
+  process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const supabase = useMemo(() => getSupabaseBrowserClient(), []);
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<PlayerProfile>(defaultProfile);
-  const [loading, setLoading] = useState(Boolean(supabase));
+  const [loading, setLoading] = useState(supabaseConfigured);
 
   const loadProfile = useCallback(
     async (userId: string, fallbackEmail?: string) => {
@@ -124,7 +128,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         profile,
         loading,
-        configured: Boolean(supabase),
+        configured: supabaseConfigured,
         refreshProfile,
         setGuestBalance,
         signOut,
