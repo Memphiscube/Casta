@@ -87,6 +87,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "coral",
     icon: Dices,
+    image: "/games/neon-seven.png",
     available: false,
   },
   {
@@ -98,6 +99,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "gold",
     icon: Fish,
+    image: "/games/golden-reef.png",
     available: false,
   },
   {
@@ -109,6 +111,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "violet",
     icon: Crown,
+    image: "/games/royal-cards.png",
     available: false,
   },
   {
@@ -120,6 +123,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "violet",
     icon: Orbit,
+    image: "/games/cosmic-spin.png",
     available: false,
   },
   {
@@ -131,6 +135,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "lime",
     icon: Clover,
+    image: "/games/lucky-garden.png",
     available: false,
   },
   {
@@ -142,6 +147,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "coral",
     icon: Spade,
+    image: "/games/midnight-poker.png",
     available: false,
   },
   {
@@ -153,6 +159,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "gold",
     icon: Sun,
+    image: "/games/desert-fortune.png",
     available: false,
   },
   {
@@ -164,6 +171,7 @@ export const games: Game[] = [
     players: "У розробці",
     accent: "lime",
     icon: Candy,
+    image: "/games/candy-vault.png",
     available: false,
   },
 ];
