@@ -1730,12 +1730,14 @@ a {
   pointer-events: none;
 }
 
-.slot-cell svg {
-  width: clamp(25px, 3.5vw, 39px);
-  height: clamp(25px, 3.5vw, 39px);
-  fill: currentColor;
-  stroke-width: 1.7;
-  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 8px currentColor);
+.slot-symbol-image {
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 5px 4px rgba(0, 0, 0, 0.58))
+    drop-shadow(0 0 7px rgba(255, 196, 77, 0.19));
+  transform: translateZ(0);
 }
 
 .symbol-cherry { color: #ff355f; }
@@ -1820,6 +1822,13 @@ a {
 
 .slot-paytable strong { color: #ffe29a; font-size: 10px; }
 .slot-paytable .slot-seven { font-size: 20px; }
+
+.slot-paytable-icon {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
 
 .slot-controls {
   width: min(590px, 100%);
@@ -2950,7 +2959,7 @@ a {
   .slot-machine-crown span { min-height: 31px; padding: 7px 12px; font-size: 8px; }
   .slot-grid { gap: 4px; padding: 6px; border-radius: 11px; }
   .slot-cell { border-radius: 8px; }
-  .slot-cell svg { width: clamp(22px, 8vw, 30px); height: clamp(22px, 8vw, 30px); }
+  .slot-symbol-image { width: 86%; height: 86%; }
   .slot-seven { font-size: clamp(27px, 10vw, 37px); }
   .slot-paytable { gap: 4px; }
   .slot-paytable > span { grid-template-columns: 1fr; justify-items: center; gap: 1px; padding: 6px 2px; }
