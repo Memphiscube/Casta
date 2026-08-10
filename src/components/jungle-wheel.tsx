@@ -1,20 +1,32 @@
 "use client";
 
-import { Coins, Minus, Plus, RotateCw, Sparkles } from "lucide-react";
+import {
+  Coins,
+  Crown,
+  Gem,
+  Gift,
+  Leaf,
+  Minus,
+  PawPrint,
+  Plus,
+  RotateCw,
+  Trophy,
+} from "lucide-react";
+import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
 const sectors = [
-  { label: "×1", multiplier: 1 },
-  { label: "×5", multiplier: 5 },
-  { label: "×2", multiplier: 2 },
-  { label: "×0", multiplier: 0 },
-  { label: "×3", multiplier: 3 },
-  { label: "×10", multiplier: 10 },
-  { label: "×2", multiplier: 2 },
-  { label: "×0", multiplier: 0 },
+  { label: "×1", multiplier: 1, icon: Leaf },
+  { label: "×5", multiplier: 5, icon: Gem },
+  { label: "×2", multiplier: 2, icon: Coins },
+  { label: "×0", multiplier: 0, icon: PawPrint },
+  { label: "×3", multiplier: 3, icon: Gift },
+  { label: "×10", multiplier: 10, icon: Crown },
+  { label: "×2", multiplier: 2, icon: Trophy },
+  { label: "×0", multiplier: 0, icon: PawPrint },
 ] as const;
 
 const bets = [50, 100, 250, 500];
@@ -104,7 +116,33 @@ export function JungleWheel() {
   }
 
   return (
-    <div className="wheel-stage">
+    <div
+      className={`wheel-stage jungle-wheel-stage${spinning ? " is-spinning" : ""}${lastWin && lastWin > 0 ? " has-win" : ""}`}
+      aria-busy={spinning}
+    >
+      <Image
+        className="jungle-stage-art"
+        src="/games/jungle-wheel-stage.webp"
+        alt=""
+        fill
+        sizes="(max-width: 860px) 100vw, 820px"
+        priority
+        aria-hidden="true"
+      />
+      <div className="jungle-fireflies" aria-hidden="true">
+        <i /><i /><i /><i /><i /><i /><i /><i />
+      </div>
+      <div className="jungle-floaters" aria-hidden="true">
+        <span className="jungle-floater jungle-floater-gem"><Gem size={24} /></span>
+        <span className="jungle-floater jungle-floater-coin"><Coins size={24} /></span>
+        <span className="jungle-floater jungle-floater-leaf"><Leaf size={25} /></span>
+      </div>
+
+      <div className="wheel-stage-title">
+        <span>Jungle Wheel</span>
+        <strong>Храм удачі</strong>
+      </div>
+
       <div className="wheel-balance-row">
         <div className="wheel-metric">
           <span>Баланс</span>
@@ -117,10 +155,12 @@ export function JungleWheel() {
       </div>
 
       <div className="play-wheel-wrap">
-        <span className="play-wheel-pointer" />
+        <span className="play-wheel-aura" aria-hidden="true" />
+        <span className="play-wheel-pointer" aria-hidden="true"><Gem size={23} /></span>
         <div className="play-wheel" style={{ transform: `rotate(${rotation}deg)` }}>
           {sectors.map((sector, index) => {
             const angle = ((index * 45 + 22.5) * Math.PI) / 180;
+            const Icon = sector.icon;
             return (
               <span
                 key={`${sector.label}-${index}`}
@@ -130,12 +170,21 @@ export function JungleWheel() {
                   top: `${50 - Math.cos(angle) * 34}%`,
                 }}
               >
-                {sector.label}
+                <Icon size={21} strokeWidth={2.1} />
+                <b>{sector.label}</b>
               </span>
             );
           })}
-          <span className="play-wheel-center"><Sparkles size={37} /></span>
+          <span className="play-wheel-center">
+            <Crown size={34} />
+            <small>CASTA</small>
+          </span>
         </div>
+        {lastWin !== null && lastWin > 0 ? (
+          <div className="wheel-win-burst" aria-hidden="true">
+            <span>+{lastWin.toLocaleString("uk-UA")}</span>
+          </div>
+        ) : null}
       </div>
 
       <div className="wheel-controls">
@@ -158,7 +207,7 @@ export function JungleWheel() {
             <Plus size={17} />
           </button>
         </div>
-        <button type="button" className="button button-primary" disabled={spinning} onClick={spin}>
+        <button type="button" className="button button-primary jungle-spin-button" disabled={spinning} onClick={spin}>
           {spinning ? <RotateCw className="spin-icon" size={18} /> : <Coins size={18} />}
           {spinning ? "Крутиться…" : "Крутити колесо"}
         </button>
