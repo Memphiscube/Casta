@@ -10,6 +10,7 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { GameCard } from "@/components/game-card";
@@ -74,33 +75,54 @@ export default function HomePage() {
       <section className="perks-strip" aria-label="Переваги CASTA">
         <div className="site-container perks-grid">
           <article className="perk-banner perk-banner-gold">
-            <div className="perk-icon" aria-hidden="true"><Coins size={27} /></div>
+            <Image
+              className="perk-art"
+              src="/banners/welcome-pack.png"
+              alt=""
+              fill
+              sizes="(max-width: 1050px) 100vw, 33vw"
+              aria-hidden="true"
+            />
             <div className="perk-copy">
               <span className="perk-kicker">Welcome pack</span>
               <strong>5 000</strong>
               <p>стартових монет</p>
+              <span className="perk-badge">У подарунок</span>
             </div>
-            <span className="perk-badge">У подарунок</span>
           </article>
 
           <article className="perk-banner perk-banner-coral">
-            <div className="perk-icon" aria-hidden="true"><Flame size={27} /></div>
+            <Image
+              className="perk-art"
+              src="/banners/daily-streak.png"
+              alt=""
+              fill
+              sizes="(max-width: 1050px) 100vw, 33vw"
+              aria-hidden="true"
+            />
             <div className="perk-copy">
               <span className="perk-kicker">Daily streak</span>
               <strong>7 днів</strong>
               <p>серія нагород</p>
+              <span className="perk-badge">Щодня більше</span>
             </div>
-            <span className="perk-badge">Щодня більше</span>
           </article>
 
           <article className="perk-banner perk-banner-lime">
-            <div className="perk-icon" aria-hidden="true"><Sparkles size={27} /></div>
+            <Image
+              className="perk-art"
+              src="/banners/play-for-fun.png"
+              alt=""
+              fill
+              sizes="(max-width: 1050px) 100vw, 33vw"
+              aria-hidden="true"
+            />
             <div className="perk-copy">
               <span className="perk-kicker">Play for fun</span>
               <strong>100%</strong>
               <p>гра заради розваги</p>
+              <span className="perk-badge">Social casino</span>
             </div>
-            <span className="perk-badge">Social casino</span>
           </article>
         </div>
       </section>
