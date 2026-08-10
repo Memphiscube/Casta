@@ -671,8 +671,21 @@ a {
   gap: 18px;
 }
 
-.home-games .game-card-link:first-child {
-  grid-column: span 1;
+.home-games {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-games .game-card-body {
+  padding: 19px;
+}
+
+.home-games .game-card h3 {
+  font-size: clamp(22px, 2.2vw, 27px);
+}
+
+.home-games .game-card p {
+  min-height: 87px;
+  font-size: 13px;
 }
 
 .game-card-link {
@@ -2857,6 +2870,7 @@ a {
   .hero-grid { grid-template-columns: 1fr 0.82fr; gap: 34px; }
   .hero-copy h1 { font-size: clamp(50px, 6vw, 68px); }
   .catalog-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-games { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .reward-grid { grid-template-columns: repeat(4, 1fr); }
   .reward-tile:last-child { grid-column: span 2; }
   .perks-grid { grid-template-columns: 1fr; }
@@ -2883,9 +2897,7 @@ a {
   .hero-grid { grid-template-columns: 1fr; gap: 52px; padding-block: 74px; }
   .hero-showcase { width: min(560px, 100%); margin: auto; }
   .games-grid { grid-template-columns: 1fr 1fr; }
-  .home-games .game-card-link:first-child { grid-column: span 2; }
-  .home-games .game-card-link:first-child .game-card { display: block; }
-  .home-games .game-card-link:first-child .game-art-with-image { min-height: 0; }
+  .home-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .club-grid { grid-template-columns: 1fr; gap: 46px; }
   .reward-preview { overflow-x: auto; grid-template-columns: repeat(7, minmax(92px, 1fr)); }
   .wheel-layout, .profile-layout, .reward-hero, .shop-layout { grid-template-columns: 1fr; }
@@ -2927,9 +2939,8 @@ a {
   .section-heading h1, .section-heading h2, .club-grid h2 { font-size: 42px; }
   .split-heading { align-items: flex-start; flex-direction: column; }
   .games-grid, .catalog-grid, .shop-grid, .profile-panel-grid { grid-template-columns: 1fr; }
-  .home-games .game-card-link:first-child { grid-column: auto; }
-  .home-games .game-card-link:first-child .game-card { display: block; }
-  .home-games .game-card-link:first-child .game-art-with-image { min-height: 0; }
+  .home-games { grid-template-columns: 1fr; }
+  .home-games .game-card p { min-height: 0; }
   .page-shell { padding-block: 52px 80px; }
   .catalog-toolbar { align-items: flex-start; flex-direction: column; }
   .game-page-head { align-items: flex-start; flex-direction: column; }

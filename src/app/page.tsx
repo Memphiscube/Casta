@@ -137,8 +137,8 @@ export default function HomePage() {
             <Link href="/games" className="text-link">Усі ігри <ArrowRight size={17} /></Link>
           </div>
           <div className="games-grid home-games">
-            {games.slice(0, 3).map((game, index) => (
-              <GameCard key={game.slug} game={game} featured={index === 0} />
+            {games.slice(0, 12).map((game) => (
+              <GameCard key={game.slug} game={game} />
             ))}
           </div>
         </div>
