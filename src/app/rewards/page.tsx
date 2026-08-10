@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Gift } from "lucide-react";
+import Image from "next/image";
 
 import { RewardsBoard } from "@/components/rewards-board";
 
@@ -13,7 +13,10 @@ export default function RewardsPage() {
     <div className="page-shell">
       <div className="site-container">
         <header className="section-heading">
-          <span className="eyebrow"><Gift size={15} /> Щоденний ритуал</span>
+          <span className="eyebrow">
+            <Image className="eyebrow-3d-symbol" src="/games/jungle-wheel-treasure-chest.png" alt="" width={28} height={28} />
+            Щоденний ритуал
+          </span>
           <h1>Твоя серія нагород</h1>
           <p>Повертайся щодня, забирай віртуальні монети та відкривай клубні предмети.</p>
         </header>
