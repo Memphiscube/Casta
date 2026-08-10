@@ -1,16 +1,10 @@
 "use client";
 
 import {
-  Award,
-  CircleUserRound,
-  Coins,
-  Flame,
-  Gamepad2,
   LogOut,
-  Sparkles,
-  Trophy,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useAuth } from "@/components/auth-provider";
 
@@ -23,7 +17,9 @@ export function ProfileDashboard() {
   return (
     <div className="profile-layout">
       <section className="profile-card">
-        <div className="profile-avatar"><CircleUserRound size={46} /></div>
+        <div className="profile-avatar">
+          <Image src="/games/casta-player-crest.png" alt="Клубний герб профілю" width={108} height={108} priority />
+        </div>
         <span className="eyebrow">Клубний профіль</span>
         <h1>{profile.username}</h1>
         <p className="profile-subtitle">{user?.email ?? "Гостьовий профіль на цьому пристрої"}</p>
@@ -56,15 +52,15 @@ export function ProfileDashboard() {
           <h2>Досягнення</h2>
           <div className="achievement-list">
             <div className="achievement-item">
-              <span className="achievement-icon"><Trophy size={17} /></span>
+              <span className="achievement-icon"><Image src="/games/jungle-wheel-paw-medallion.png" alt="" width={46} height={46} /></span>
               <span><strong>Перший оберт</strong>Зіграй першу партію в Jungle Wheel.</span>
             </div>
             <div className="achievement-item">
-              <span className="achievement-icon"><Flame size={17} /></span>
+              <span className="achievement-icon"><Image src="/games/casta-streak-flame.png" alt="" width={46} height={46} /></span>
               <span><strong>Тримай темп</strong>Збери серію входів протягом 3 днів.</span>
             </div>
             <div className="achievement-item">
-              <span className="achievement-icon"><Award size={17} /></span>
+              <span className="achievement-icon"><Image src="/games/jungle-wheel-temple-crown.png" alt="" width={46} height={46} /></span>
               <span><strong>Клубний стиль</strong>Отримай перший косметичний предмет.</span>
             </div>
           </div>
@@ -74,15 +70,15 @@ export function ProfileDashboard() {
           <h2>Остання активність</h2>
           <div className="activity-list">
             <div className="activity-item">
-              <span className="activity-icon"><Coins size={17} /></span>
+              <span className="activity-icon"><Image src="/games/jungle-wheel-coins.png" alt="" width={46} height={46} /></span>
               <span><strong>Щоденна нагорода</strong>+500 віртуальних монет.</span>
             </div>
             <div className="activity-item">
-              <span className="activity-icon"><Gamepad2 size={17} /></span>
+              <span className="activity-icon"><Image src="/games/jungle-wheel-explorer-trophy.png" alt="" width={46} height={46} /></span>
               <span><strong>Jungle Wheel</strong>Найкращий сектор сьогодні — ×5.</span>
             </div>
             <div className="activity-item">
-              <span className="activity-icon"><Sparkles size={17} /></span>
+              <span className="activity-icon"><Image src="/games/jungle-wheel-amethyst.png" alt="" width={46} height={46} /></span>
               <span><strong>Новий рівень</strong>Відкрито рівень {profile.level}.</span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { Check, Flame, Gift, LockKeyhole } from "lucide-react";
+import { Check, LockKeyhole } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
@@ -64,13 +65,20 @@ export function RewardsBoard() {
       <section className="reward-board">
         <h2>Щоденна серія</h2>
         <div className="reward-grid">
-          {dailyRewards.map(({ day, coins, icon: Icon }) => {
+          {dailyRewards.map(({ day, coins, image, alt }) => {
             const isClaimed = day < currentDay || (day === currentDay && claimed);
             const isCurrent = day === currentDay && !claimed;
             return (
               <div key={day} className={`reward-tile ${isClaimed ? "claimed" : ""} ${isCurrent ? "current" : ""}`}>
                 <span>День {day}</span>
-                {isClaimed ? <Check size={24} /> : day > currentDay ? <LockKeyhole size={22} /> : <Icon size={24} />}
+                <span className="reward-symbol-shell">
+                  <Image className="reward-symbol-image" src={image} alt={alt} width={88} height={88} />
+                  {(isClaimed || day > currentDay) && (
+                    <span className={`reward-status-badge ${isClaimed ? "is-claimed" : "is-locked"}`} aria-label={isClaimed ? "Отримано" : "Заблоковано"}>
+                      {isClaimed ? <Check size={15} /> : <LockKeyhole size={14} />}
+                    </span>
+                  )}
+                </span>
                 <strong>{coins.toLocaleString("uk-UA")} 🪙</strong>
               </div>
             );
@@ -83,13 +91,13 @@ export function RewardsBoard() {
 
       <aside className="streak-card">
         <div>
-          <Flame size={34} />
+          <Image className="streak-3d-symbol" src="/games/casta-streak-flame.png" alt="Магічне полум’я серії" width={112} height={112} />
           <strong>{profile.streak}</strong>
           <span>дні поспіль</span>
           <p>Забирай нагороду щодня. Після сьомого дня цикл починається знову.</p>
         </div>
         <button type="button" className="button button-primary" disabled={claiming || claimed} onClick={claimReward}>
-          {claimed ? <Check size={18} /> : <Gift size={18} />}
+          {claimed ? <Check size={18} /> : <Image className="button-3d-symbol" src="/games/jungle-wheel-treasure-chest.png" alt="" width={24} height={24} />}
           {claiming ? "Отримуємо…" : claimed ? "Отримано" : "Забрати нагороду"}
         </button>
       </aside>
