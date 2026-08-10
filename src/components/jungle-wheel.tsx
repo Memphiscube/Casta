@@ -4,13 +4,10 @@ import {
   Coins,
   Crown,
   Gem,
-  Gift,
   Leaf,
   Minus,
-  PawPrint,
   Plus,
   RotateCw,
-  Trophy,
 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -19,14 +16,14 @@ import { useAuth } from "@/components/auth-provider";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
 const sectors = [
-  { label: "×1", multiplier: 1, icon: Leaf },
-  { label: "×5", multiplier: 5, icon: Gem },
-  { label: "×2", multiplier: 2, icon: Coins },
-  { label: "×0", multiplier: 0, icon: PawPrint },
-  { label: "×3", multiplier: 3, icon: Gift },
-  { label: "×10", multiplier: 10, icon: Crown },
-  { label: "×2", multiplier: 2, icon: Trophy },
-  { label: "×0", multiplier: 0, icon: PawPrint },
+  { label: "×1", multiplier: 1, iconSrc: "/games/jungle-wheel-leaf.png" },
+  { label: "×5", multiplier: 5, iconSrc: "/games/jungle-wheel-amethyst.png" },
+  { label: "×2", multiplier: 2, iconSrc: "/games/jungle-wheel-coins.png" },
+  { label: "×0", multiplier: 0, iconSrc: "/games/jungle-wheel-paw-medallion.png" },
+  { label: "×3", multiplier: 3, iconSrc: "/games/jungle-wheel-treasure-chest.png" },
+  { label: "×10", multiplier: 10, iconSrc: "/games/jungle-wheel-temple-crown.png" },
+  { label: "×2", multiplier: 2, iconSrc: "/games/jungle-wheel-explorer-trophy.png" },
+  { label: "×0", multiplier: 0, iconSrc: "/games/jungle-wheel-jaguar-mask.png" },
 ] as const;
 
 const bets = [50, 100, 250, 500];
@@ -162,7 +159,6 @@ export function JungleWheel() {
             const sectorSize = 360 / sectors.length;
             const sectorCenter = index * sectorSize + sectorSize / 2;
             const angle = (sectorCenter * Math.PI) / 180;
-            const Icon = sector.icon;
             return (
               <span
                 key={`${sector.label}-${index}`}
@@ -172,7 +168,15 @@ export function JungleWheel() {
                   top: `${50 - Math.cos(angle) * 34}%`,
                 }}
               >
-                <Icon size={21} strokeWidth={2.1} />
+                <Image
+                  className="wheel-sector-icon"
+                  src={sector.iconSrc}
+                  alt=""
+                  width={42}
+                  height={42}
+                  draggable={false}
+                  aria-hidden="true"
+                />
                 <b>{sector.label}</b>
               </span>
             );
