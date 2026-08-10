@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function JungleWheelPage() {
   return (
-    <div className="page-shell compact">
+    <div className="page-shell compact jungle-game-page">
       <div className="site-container">
         <div className="game-page-head">
           <Link href="/games" className="back-link"><ArrowLeft size={17} /> До каталогу</Link>
