@@ -924,8 +924,8 @@ a {
   isolation: isolate;
   background-color: #030a07;
   background-image:
-    radial-gradient(circle at 50% 42%, rgba(3, 14, 9, 0.08) 0 21%, rgba(2, 9, 6, 0.42) 58%, rgba(1, 5, 3, 0.86) 100%),
-    linear-gradient(180deg, rgba(2, 7, 5, 0.66), rgba(3, 12, 8, 0.18) 26%, rgba(2, 8, 5, 0.5) 78%, #030806 100%),
+    radial-gradient(circle at 50% 42%, rgba(3, 14, 9, 0.04) 0 21%, rgba(2, 9, 6, 0.28) 58%, rgba(1, 5, 3, 0.68) 100%),
+    linear-gradient(180deg, rgba(2, 7, 5, 0.42), rgba(3, 12, 8, 0.08) 26%, rgba(2, 8, 5, 0.34) 78%, #030806 100%),
     url("/games/jungle-wheel-stage.webp");
   background-position: center, center, center 42%;
   background-repeat: no-repeat;
@@ -938,9 +938,9 @@ a {
   content: "";
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(1, 5, 3, 0.68), transparent 20% 80%, rgba(1, 5, 3, 0.68)),
-    radial-gradient(circle at 15% 31%, rgba(185, 247, 109, 0.08), transparent 18%),
-    radial-gradient(circle at 86% 26%, rgba(239, 187, 69, 0.09), transparent 19%);
+    linear-gradient(90deg, rgba(1, 5, 3, 0.42), transparent 20% 80%, rgba(1, 5, 3, 0.42)),
+    radial-gradient(circle at 15% 31%, rgba(185, 247, 109, 0.12), transparent 18%),
+    radial-gradient(circle at 86% 26%, rgba(239, 187, 69, 0.13), transparent 19%);
   pointer-events: none;
 }
 
