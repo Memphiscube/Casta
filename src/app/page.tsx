@@ -3,7 +3,6 @@ import {
   CheckCircle2,
   Coins,
   Flame,
-  Gift,
   Play,
   ShieldCheck,
   Sparkles,
@@ -14,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { GameCard } from "@/components/game-card";
-import { games } from "@/lib/data";
+import { dailyRewards, games } from "@/lib/data";
 
 export default function HomePage() {
   return (
@@ -147,7 +146,10 @@ export default function HomePage() {
       <section className="section-block club-section">
         <div className="site-container club-grid">
           <div>
-            <span className="eyebrow"><Gift size={15} /> Клубна система</span>
+            <span className="eyebrow">
+              <Image className="eyebrow-3d-symbol" src="/games/jungle-wheel-treasure-chest.png" alt="" width={28} height={28} />
+              Клубна система
+            </span>
             <h2>Щодня — нова причина повернутися</h2>
             <p>
               Збирай серію входів, підвищуй рівень і витрачай монети лише на
@@ -158,11 +160,11 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="reward-preview">
-            {[1, 2, 3, 4, 5, 6, 7].map((day) => (
+            {dailyRewards.map(({ day, coins, image, alt }) => (
               <div key={day} className={day <= 3 ? "reward-day claimed" : day === 4 ? "reward-day current" : "reward-day"}>
                 <span>День {day}</span>
-                <Coins size={20} />
-                <strong>{day === 7 ? "2 500" : 150 + day * 100}</strong>
+                <Image className="reward-day-symbol" src={image} alt={alt} width={66} height={66} />
+                <strong>{coins.toLocaleString("uk-UA")}</strong>
               </div>
             ))}
           </div>
