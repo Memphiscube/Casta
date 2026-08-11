@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { AuthAside, AuthForm } from "@/components/auth-form";
 
 export const metadata: Metadata = {
-  title: "Вхід",
-  description: "Увійти або створити безкоштовний акаунт CASTA.",
+  title: "Sign in",
+  description: "Sign in or create a free CASTA account.",
 };
 
 export default function LoginPage() {
