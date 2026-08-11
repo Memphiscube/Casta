@@ -2132,6 +2132,173 @@ a {
 .cherry-prize-card strong { color: #ff547f; font-family: Georgia, "Times New Roman", serif; font-size: 27px; letter-spacing: 0.08em; text-shadow: 0 0 15px rgba(255, 38, 91, 0.65); }
 .cherry-prize-card small { color: #ffe1a2; font-size: 10px; }
 
+.golden-reef-page {
+  position: relative;
+  isolation: isolate;
+  background-color: #020f1b;
+  background-image:
+    radial-gradient(circle at 50% 38%, rgba(1, 102, 130, 0.12) 0 24%, rgba(1, 24, 43, 0.52) 68%, #010912 100%),
+    linear-gradient(180deg, rgba(0, 10, 23, 0.3), rgba(0, 32, 51, 0.09) 32%, rgba(0, 7, 15, 0.88)),
+    url("/games/golden-reef.png");
+  background-position: center, center, center 36%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.golden-reef-page::before {
+  position: absolute;
+  z-index: 0;
+  content: "";
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 7, 14, 0.58), transparent 25% 75%, rgba(0, 7, 14, 0.58)),
+    radial-gradient(circle at 12% 26%, rgba(32, 205, 235, 0.16), transparent 19%),
+    radial-gradient(circle at 87% 24%, rgba(255, 194, 65, 0.14), transparent 20%);
+  pointer-events: none;
+}
+
+.golden-reef-page > .site-container { position: relative; z-index: 1; }
+
+.golden-reef-page .back-link,
+.golden-reef-page .game-mode-pill {
+  border: 1px solid rgba(87, 221, 238, 0.24);
+  border-radius: 999px;
+  color: #d9fbff;
+  background: rgba(1, 21, 37, 0.72);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.golden-reef-page .back-link { padding: 9px 12px; }
+.golden-reef-page .game-mode-pill { color: #8eeaf2; }
+
+.golden-reef-stage {
+  position: relative;
+  min-height: 760px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 32px 30px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(75, 219, 235, 0.4);
+  border-radius: var(--radius-md);
+  background: #031421;
+  box-shadow: inset 0 0 110px rgba(0, 0, 0, 0.72), 0 28px 86px rgba(0, 0, 0, 0.5), 0 0 38px rgba(26, 190, 219, 0.1);
+}
+
+.reef-stage-art {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(1.12) contrast(1.08) brightness(0.36);
+  transform: scale(1.04);
+}
+
+.golden-reef-stage::before {
+  position: absolute;
+  z-index: 1;
+  content: "";
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(0, 58, 82, 0.04) 0 25%, rgba(0, 17, 31, 0.5) 68%, rgba(0, 6, 14, 0.92) 100%),
+    linear-gradient(180deg, rgba(0, 14, 27, 0.52), transparent 25%, transparent 72%, rgba(0, 7, 15, 0.88));
+  pointer-events: none;
+}
+
+.golden-reef-stage::after {
+  position: absolute;
+  z-index: 8;
+  content: "";
+  inset: 10px;
+  border: 1px solid rgba(255, 220, 135, 0.18);
+  border-radius: calc(var(--radius-md) - 8px);
+  box-shadow: inset 0 0 38px rgba(31, 210, 235, 0.09);
+  pointer-events: none;
+}
+
+.golden-reef-stage > *:not(.reef-stage-art, .reef-bubbles) { position: relative; z-index: 3; }
+
+.reef-stage-title > span { color: #79e8f5; text-shadow: 0 0 18px rgba(42, 219, 238, 0.72); }
+.reef-stage-title > strong { color: #fff3c9; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 0 24px rgba(31, 196, 221, 0.58); }
+.reef-stage-title .slot-feature-pills small { border-color: rgba(89, 226, 239, 0.22); color: #d7f9ff; background: rgba(0, 34, 52, 0.68); }
+.reef-metrics .slot-metric { border-color: rgba(96, 224, 238, 0.2); background: rgba(0, 23, 38, 0.76); }
+.reef-metrics .slot-metric span { color: #8eb7c0; }
+.reef-metrics .slot-metric strong { color: #ffe7a1; }
+
+.reef-machine-frame {
+  border-color: #b47b25;
+  background:
+    linear-gradient(145deg, rgba(217, 255, 255, 0.18), transparent 24% 72%, rgba(0, 76, 95, 0.52)),
+    linear-gradient(160deg, #f1c65f, #76501e 23%, #022a3a 37% 69%, #11647b 82%, #e8bd53);
+  box-shadow: inset 0 0 0 2px #ffe198, inset 0 0 0 6px #244d53, 0 0 0 4px rgba(0, 27, 41, 0.92), 0 16px 36px rgba(0, 0, 0, 0.58), 0 0 38px rgba(34, 203, 228, 0.22);
+}
+
+.reef-machine-crown span { border-color: #ffe28a; color: #fff3c1; background: linear-gradient(180deg, #08758c, #012b3d); box-shadow: inset 0 1px rgba(255, 255, 255, 0.24), 0 0 23px rgba(37, 214, 234, 0.42); }
+.reef-machine-crown svg { color: #8ff5ff; filter: drop-shadow(0 0 6px rgba(84, 232, 244, 0.78)); }
+
+.reef-slot-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 2px), rgba(116, 230, 242, 0.09) calc(20% - 2px) 20%), #011421;
+  border-color: #173e48;
+}
+
+.reef-slot-cell {
+  aspect-ratio: 1.12;
+  border-color: rgba(104, 226, 239, 0.2);
+  background: radial-gradient(circle at 50% 36%, rgba(94, 231, 242, 0.13), transparent 34%), linear-gradient(145deg, #06445a, #011725 70%);
+}
+
+.reef-symbol {
+  width: 88%;
+  height: 88%;
+  display: block;
+  background-image: url("/games/golden-reef-atlas.png");
+  background-repeat: no-repeat;
+  background-position: var(--reef-x) var(--reef-y);
+  background-size: 300% 200%;
+  filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.62)) drop-shadow(0 0 8px rgba(73, 218, 238, 0.2));
+}
+
+.reef-slot-cell.is-winning {
+  border-color: #fff1a4;
+  background: radial-gradient(circle, rgba(255, 224, 107, 0.34), transparent 61%), linear-gradient(145deg, #0d7188, #022334 70%);
+  box-shadow: inset 0 0 18px rgba(255, 218, 95, 0.26), 0 0 0 2px rgba(55, 225, 239, 0.4), 0 0 23px rgba(255, 208, 75, 0.72);
+}
+
+.golden-reef-stage.is-spinning .reef-slot-cell { animation: slot-reel-roll 360ms ease-in-out infinite; }
+
+.reef-paytable > span { border-color: rgba(92, 220, 235, 0.18); background: rgba(0, 27, 43, 0.76); }
+.reef-paytable small { color: #8db3bc; }
+.reef-paytable strong { color: #ffe29a; }
+.reef-paytable-symbol { width: 23px; height: 23px; }
+.reef-bet-control { border-color: rgba(78, 220, 235, 0.28); background: rgba(0, 28, 43, 0.8); }
+.reef-bet-control button:hover:not(:disabled) { color: #8df5ff; background: rgba(39, 211, 232, 0.13); }
+.reef-spin-button { border-color: rgba(255, 230, 151, 0.72); color: #fff9df; background: linear-gradient(135deg, #05677b, #12a9bd 48%, #bf8a2d 118%); box-shadow: 0 11px 30px rgba(0, 128, 157, 0.36), inset 0 1px rgba(255, 255, 255, 0.32), 0 0 20px rgba(42, 221, 234, 0.2); }
+.reef-spin-button:hover:not(:disabled) { box-shadow: 0 14px 38px rgba(9, 183, 204, 0.46), 0 0 27px rgba(255, 197, 70, 0.2); }
+.reef-message { border-color: rgba(77, 217, 233, 0.2); color: #d4faff; background: rgba(0, 23, 37, 0.78); }
+
+.reef-bubbles { position: absolute; z-index: 2; inset: 0; overflow: hidden; pointer-events: none; }
+.reef-bubbles i { position: absolute; bottom: -25px; width: 11px; height: 11px; border: 1px solid rgba(173, 246, 255, 0.7); border-radius: 50%; box-shadow: inset 0 0 5px rgba(129, 239, 255, 0.45), 0 0 8px rgba(56, 216, 237, 0.3); animation: reef-bubble-rise 6s ease-in infinite; }
+.reef-bubbles i:nth-child(1) { left: 7%; animation-delay: -1s; }
+.reef-bubbles i:nth-child(2) { left: 18%; width: 7px; height: 7px; animation-delay: -4s; }
+.reef-bubbles i:nth-child(3) { left: 38%; animation-delay: -2.3s; }
+.reef-bubbles i:nth-child(4) { right: 35%; width: 8px; height: 8px; animation-delay: -5.2s; }
+.reef-bubbles i:nth-child(5) { right: 19%; animation-delay: -3.1s; }
+.reef-bubbles i:nth-child(6) { right: 8%; width: 6px; height: 6px; animation-delay: -0.4s; }
+
+.reef-side-panel { border-color: rgba(64, 212, 231, 0.27); background: radial-gradient(circle at 92% 4%, rgba(26, 201, 223, 0.14), transparent 32%), linear-gradient(150deg, rgba(1, 47, 63, 0.94), rgba(2, 12, 24, 0.96) 70%); }
+.reef-side-panel .rule-icon { border-color: rgba(70, 219, 235, 0.24); color: #8cecf5; background: rgba(34, 204, 224, 0.1); }
+.reef-prize-card { border-color: rgba(255, 210, 104, 0.25); background: radial-gradient(circle at 50% 0, rgba(38, 207, 228, 0.2), transparent 58%), rgba(0, 28, 43, 0.7); }
+.reef-prize-card strong { color: #ffe078; text-shadow: 0 0 16px rgba(48, 215, 232, 0.58); }
+
+@keyframes reef-bubble-rise {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.65); }
+  18% { opacity: 0.75; }
+  100% { opacity: 0; transform: translate3d(12px, -720px, 0) scale(1.45); }
+}
+
 @keyframes slot-reel-roll {
   0% { filter: blur(0); transform: translateY(-5px) scaleY(0.96); opacity: 0.78; }
   50% { filter: blur(1.6px); transform: translateY(7px) scaleY(1.06); opacity: 1; }
@@ -3336,6 +3503,10 @@ a {
   .slot-controls { grid-template-columns: 1fr; }
   .slot-message { font-size: 11px; }
   .cherry-neon-orbs { display: none; }
+  .golden-reef-stage { min-height: 660px; padding: 22px 10px 24px; }
+  .reef-slot-cell { aspect-ratio: 1; }
+  .reef-symbol { width: 94%; height: 94%; }
+  .reef-bubbles { display: none; }
   .reward-grid { grid-template-columns: repeat(2, 1fr); }
   .reward-tile:last-child { grid-column: span 2; }
   .reward-board { padding: 20px 14px; }
