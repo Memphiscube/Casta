@@ -20,6 +20,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { AccountPopover } from "@/components/account-popover";
+import { AuthModal } from "@/components/auth-modal";
 import { useAuth } from "@/components/auth-provider";
 import { useI18n } from "@/components/i18n-provider";
 
@@ -74,6 +76,8 @@ export function SiteHeader() {
   const copy = headerCopy[locale];
   const links = linkDefinitions.map((link) => ({ ...link, label: copy.links[link.key] }));
   const [open, setOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
 
   return (
     <header className="site-header">
@@ -110,9 +114,18 @@ export function SiteHeader() {
             <Coins size={17} />
             <strong>{profile.balance.toLocaleString(numberLocale)}</strong>
           </div>
-          <Link href={user ? "/profile" : "/login"} className="avatar-button" aria-label={copy.account}>
-            <CircleUserRound size={21} />
-          </Link>
+          <div className="header-account-wrap">
+            <button
+              type="button"
+              className="avatar-button"
+              aria-label={user ? copy.myAccount : copy.account}
+              aria-expanded={user ? accountOpen : authOpen}
+              onClick={() => user ? setAccountOpen((value) => !value) : setAuthOpen(true)}
+            >
+              <CircleUserRound size={21} />
+            </button>
+            {user && accountOpen && <AccountPopover onClose={() => setAccountOpen(false)} />}
+          </div>
           <button
             className="menu-button"
             type="button"
@@ -133,10 +146,14 @@ export function SiteHeader() {
               {label}
             </Link>
           ))}
-          <Link href="/login" onClick={() => setOpen(false)}>
+          <button type="button" className="mobile-auth-button" onClick={() => {
+            setOpen(false);
+            if (user) setAccountOpen(true);
+            else setAuthOpen(true);
+          }}>
             <CircleUserRound size={19} />
             {user ? copy.myAccount : copy.signIn}
-          </Link>
+          </button>
         </nav>
       )}
 
@@ -153,6 +170,7 @@ export function SiteHeader() {
           })}
         </div>
       </aside>
+      <AuthModal mode="login" open={authOpen} onClose={() => setAuthOpen(false)} />
     </header>
   );
 }
