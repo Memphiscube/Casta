@@ -46,28 +46,27 @@ export default function HomePage() {
           </div>
 
           <div className="hero-showcase welcome-offer" aria-label="5 000 стартових монет у CASTA">
-            <div className="welcome-offer-art" aria-hidden="true">
-              <span className="welcome-orbit welcome-orbit-one" />
-              <span className="welcome-orbit welcome-orbit-two" />
-              <span className="welcome-coin welcome-coin-one"><Coins size={22} /></span>
-              <span className="welcome-coin welcome-coin-two"><Sparkles size={20} /></span>
-              <Image
-                className="welcome-character"
-                src="/casta-crownkeeper.png"
-                alt=""
-                width={1254}
-                height={1254}
-                priority
-              />
-            </div>
+            <Image
+              className="welcome-scene"
+              src="/casta-welcome-scene.webp"
+              alt="Crownkeeper на горі віртуальних монет перед клубом CASTA"
+              fill
+              sizes="(max-width: 860px) 560px, 43vw"
+              priority
+            />
             <div className="welcome-offer-copy">
-              <span className="welcome-status"><i /> Новий гравець</span>
               <span className="welcome-kicker">Welcome bonus</span>
               <h2>
-                <strong>5 000</strong>
+                <Image
+                  className="welcome-5000"
+                  src="/casta-5000.png"
+                  alt="5 000"
+                  width={1536}
+                  height={1024}
+                />
                 <small>стартових монет</small>
               </h2>
-              <p>Твій перший клубний запас уже готовий. Грай безкоштовно та збирай свою колекцію.</p>
+              <p>Твій клубний запас уже готовий. Грай безкоштовно та збирай свою колекцію.</p>
               <a href="#home-games" className="welcome-play-button">
                 <Play size={19} fill="currentColor" /> Play game <ArrowRight size={20} />
               </a>
