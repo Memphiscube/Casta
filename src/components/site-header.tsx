@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Ban,
   CircleUserRound,
   Coins,
   Gamepad2,
@@ -8,6 +9,9 @@ import {
   ListChecks,
   Menu,
   ShoppingBag,
+  ShieldCheck,
+  Smile,
+  Star,
   X,
 } from "lucide-react";
 import Image from "next/image";
@@ -23,6 +27,14 @@ const links = [
   { href: "/rewards", label: "Нагороди", icon: Gift },
   { href: "/shop", label: "Магазин", icon: ShoppingBag },
   { href: "/profile", label: "Профіль", icon: CircleUserRound },
+];
+
+const clubNotices = [
+  { label: "Безкоштовне social casino", icon: Star },
+  { label: "Лише віртуальні монети", icon: Coins },
+  { label: "Без реальних грошей", icon: Ban },
+  { label: "Гра заради розваги", icon: Smile },
+  { label: "Тільки 18+", icon: ShieldCheck },
 ];
 
 export function SiteHeader() {
@@ -90,6 +102,17 @@ export function SiteHeader() {
           </Link>
         </nav>
       )}
+
+      <aside className="club-notice-strip" aria-label="Важлива інформація про CASTA">
+        <div className="club-notice-inner">
+          {clubNotices.map(({ label, icon: Icon }) => (
+            <span className="club-notice-item" key={label}>
+              <Icon size={17} strokeWidth={2.2} aria-hidden="true" />
+              {label}
+            </span>
+          ))}
+        </div>
+      </aside>
     </header>
   );
 }
