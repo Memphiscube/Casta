@@ -2,6 +2,7 @@
 
 import {
   Ban,
+  CircleHelp,
   CircleUserRound,
   Coins,
   Gamepad2,
@@ -24,6 +25,7 @@ import { useI18n } from "@/components/i18n-provider";
 
 const linkDefinitions = [
   { href: "/how-it-works", key: "how" as const, icon: ListChecks },
+  { href: "/faq", key: "faq" as const, icon: CircleHelp },
   { href: "/games", key: "games" as const, icon: Gamepad2 },
   { href: "/rewards", key: "rewards" as const, icon: Gift },
   { href: "/shop", key: "shop" as const, icon: ShoppingBag },
@@ -32,7 +34,7 @@ const linkDefinitions = [
 
 const headerCopy = {
   en: {
-    links: { how: "How it works", games: "Games", rewards: "Rewards", shop: "Shop", profile: "Profile" },
+    links: { how: "How it works", faq: "FAQ", games: "Games", rewards: "Rewards", shop: "Shop", profile: "Profile" },
     notices: ["Free social casino", "Virtual coins only", "No real money", "Play for fun", "18+ only"],
     home: "CASTA — home",
     navigation: "Main navigation",
@@ -47,7 +49,7 @@ const headerCopy = {
     language: "Language",
   },
   cs: {
-    links: { how: "Jak to funguje", games: "Hry", rewards: "Odměny", shop: "Obchod", profile: "Profil" },
+    links: { how: "Jak to funguje", faq: "FAQ", games: "Hry", rewards: "Odměny", shop: "Obchod", profile: "Profil" },
     notices: ["Social casino zdarma", "Pouze virtuální mince", "Žádné skutečné peníze", "Hra pro zábavu", "Pouze 18+"],
     home: "CASTA — domů",
     navigation: "Hlavní navigace",
