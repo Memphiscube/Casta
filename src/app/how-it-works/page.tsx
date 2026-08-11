@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,73 +13,52 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { useI18n } from "@/components/i18n-provider";
 
-export const metadata: Metadata = {
-  title: "Як це працює",
-  description:
-    "Дізнайся, як працює CASTA: безкоштовний акаунт, віртуальні монети, social casino і щоденні нагороди.",
-};
-
-const steps = [
-  {
-    icon: CircleUserRound,
-    title: "Створи безкоштовний акаунт",
-    description:
-      "Зареєструйся за допомогою email і пароля. Банківська картка, депозит або платіжні дані не потрібні.",
-    tag: "Менше хвилини",
+const content = {
+  en: {
+    simple: "Simple and free", title: "How CASTA works", intro: "Four simple steps from your first visit to a daily streak. Virtual coins only, club progress and play for fun.", starting: "5,000 starting coins", noDeposit: "no deposit", stepsLabel: "How to start playing CASTA",
+    steps: [
+      { icon: CircleUserRound, title: "Create a free account", description: "Register with an email and password. No bank card, deposit or payment details are required.", tag: "Less than a minute" },
+      { icon: Coins, title: "Get your starting coins", description: "Every new profile automatically receives 5,000 virtual coins — enough to start playing right away.", tag: "5,000 coins instantly" },
+      { icon: Gamepad2, title: "Choose a game and play", description: "Open the catalog, launch Jungle Wheel and watch for new games. Registration is optional in guest mode.", tag: "Play now" },
+      { icon: Gift, title: "Return for rewards", description: "Collect a daily bonus, maintain a 7-day streak and use coins in games and the cosmetic shop.", tag: "Up to 2,500 coins" },
+    ],
+    currency: "100% virtual currency", coinTitle: "Coins are for play, progress and collecting", coinText: "Virtual coins are not money. They cannot be bought, withdrawn or exchanged for cash or prizes — they are simply part of the CASTA experience.", checks: ["No payments or deposits", "5,000 coins for every new profile", "Daily bonuses from 250 to 2,500", "Games and cosmetic collections"],
+    essential: "The essentials", faq: "Frequently asked questions",
+    questions: [
+      { question: "Does CASTA offer real-money bets or winnings?", answer: "No. CASTA is a social casino intended solely for entertainment. There are no deposits, real-money bets, withdrawals or prizes with monetary value." },
+      { question: "What are virtual coins?", answer: "They are in-game points for spins, progress and cosmetic items. They have no monetary value and cannot be exchanged for money, goods or services." },
+      { question: "Do I need to add a bank card?", answer: "No. Registration only requires an email and password. CASTA does not request payment details or sell virtual coins for real money." },
+      { question: "How can I get more coins?", answer: "Start with 5,000 coins and collect daily rewards. The seven-day streak gradually grows from 250 to 2,500 coins." },
+      { question: "Do I have to create an account?", answer: "Jungle Wheel is also available in guest mode. An account syncs your balance, reward streak, profile and collection through Supabase." },
+    ],
+    first: "Your first round", ready: "Ready for your first spin?", guest: "Guest mode is available instantly. An account saves your progress and rewards.", play: "Play for free", rewards: "View rewards",
   },
-  {
-    icon: Coins,
-    title: "Отримай стартові монети",
-    description:
-      "Новий профіль автоматично отримує 5 000 віртуальних монет — цього достатньо, щоб одразу почати гру.",
-    tag: "5 000 монет одразу",
+  cs: {
+    simple: "Jednoduše a zdarma", title: "Jak CASTA funguje", intro: "Čtyři jednoduché kroky od první návštěvy k denní sérii. Pouze virtuální mince, klubový pokrok a hra pro zábavu.", starting: "5 000 startovních mincí", noDeposit: "bez vkladu", stepsLabel: "Jak začít hrát CASTA",
+    steps: [
+      { icon: CircleUserRound, title: "Vytvoř si bezplatný účet", description: "Zaregistruj se pomocí e-mailu a hesla. Platební karta, vklad ani platební údaje nejsou potřeba.", tag: "Méně než minuta" },
+      { icon: Coins, title: "Získej startovní mince", description: "Každý nový profil automaticky získá 5 000 virtuálních mincí — dost na okamžité zahájení hry.", tag: "5 000 mincí ihned" },
+      { icon: Gamepad2, title: "Vyber hru a začni", description: "Otevři katalog, spusť Jungle Wheel a sleduj nové hry. V režimu hosta není registrace povinná.", tag: "Hraj hned" },
+      { icon: Gift, title: "Vracej se pro odměny", description: "Vyzvedávej denní bonus, udržuj sedmidenní sérii a používej mince ve hrách i kosmetickém obchodě.", tag: "Až 2 500 mincí" },
+    ],
+    currency: "100% virtuální měna", coinTitle: "Mince jsou pro hru, pokrok a sbírku", coinText: "Virtuální mince nejsou peníze. Nelze je koupit, vybrat ani směnit za hotovost či ceny — jsou pouze součástí zážitku CASTA.", checks: ["Žádné platby ani vklady", "5 000 mincí pro každý nový profil", "Denní bonusy od 250 do 2 500", "Hry a kosmetické sbírky"],
+    essential: "To nejdůležitější", faq: "Časté otázky",
+    questions: [
+      { question: "Nabízí CASTA sázky nebo výhry za skutečné peníze?", answer: "Ne. CASTA je social casino určené výhradně pro zábavu. Nejsou zde vklady, peněžní sázky, výběry ani ceny s peněžní hodnotou." },
+      { question: "Co jsou virtuální mince?", answer: "Jsou to herní body pro roztočení, pokrok a kosmetické předměty. Nemají peněžní hodnotu a nelze je směnit za peníze, zboží ani služby." },
+      { question: "Musím přidat platební kartu?", answer: "Ne. K registraci stačí e-mail a heslo. CASTA nevyžaduje platební údaje a neprodává virtuální mince za skutečné peníze." },
+      { question: "Jak získám více mincí?", answer: "Začni s 5 000 mincemi a vyzvedávej denní odměny. Sedmidenní série postupně roste od 250 do 2 500 mincí." },
+      { question: "Musím si vytvořit účet?", answer: "Jungle Wheel je dostupné i v režimu hosta. Účet synchronizuje zůstatek, sérii odměn, profil a sbírku přes Supabase." },
+    ],
+    first: "Tvoje první kolo", ready: "Připraven na první roztočení?", guest: "Režim hosta je dostupný ihned. Účet uloží tvůj pokrok a odměny.", play: "Hrát zdarma", rewards: "Zobrazit odměny",
   },
-  {
-    icon: Gamepad2,
-    title: "Обери гру і починай",
-    description:
-      "Відкрий каталог, запускай Jungle Wheel і стеж за новими іграми. Для гостьового режиму реєстрація не обов’язкова.",
-    tag: "Гра вже доступна",
-  },
-  {
-    icon: Gift,
-    title: "Повертайся за нагородами",
-    description:
-      "Забирай щоденний бонус, підтримуй 7-денну серію та використовуй монети в іграх і магазині косметики.",
-    tag: "До 2 500 монет",
-  },
-];
-
-const questions = [
-  {
-    question: "Чи є в CASTA ставки або виграші в реальних грошах?",
-    answer:
-      "Ні. CASTA — це social casino виключно для розваги. Тут немає депозитів, грошових ставок, виведення коштів або призів із реальною вартістю.",
-  },
-  {
-    question: "Що таке віртуальні монети?",
-    answer:
-      "Це внутрішні ігрові бали для обертань, прогресу та косметичних предметів. Вони не мають грошової вартості й не обмінюються на гроші, товари чи послуги.",
-  },
-  {
-    question: "Чи потрібно додавати банківську картку?",
-    answer:
-      "Ні. Для реєстрації потрібні лише email і пароль. CASTA не просить платіжні реквізити й не продає віртуальні монети за реальні гроші.",
-  },
-  {
-    question: "Як отримати більше монет?",
-    answer:
-      "Почни з 5 000 стартових монет і забирай щоденні нагороди. У семиденній серії сума поступово зростає від 250 до 2 500 монет.",
-  },
-  {
-    question: "Чи обов’язково створювати акаунт?",
-    answer:
-      "Jungle Wheel доступна і в гостьовому режимі. Акаунт потрібен, щоб синхронізувати баланс, серію нагород, профіль і колекцію через Supabase.",
-  },
-];
+} as const;
 
 export default function HowItWorksPage() {
+  const { locale } = useI18n();
+  const t = content[locale];
   return (
     <div className="how-page">
       <section className="how-hero">
@@ -95,21 +75,18 @@ export default function HowItWorksPage() {
 
         <div className="site-container how-hero-inner">
           <div className="how-intro">
-            <span className="eyebrow"><Sparkles size={15} /> Просто та безкоштовно</span>
-            <h1>Як працює <em>CASTA</em></h1>
-            <p>
-              Чотири прості кроки від першого входу до щоденної серії.
-              Тільки віртуальні монети, клубний прогрес і гра заради розваги.
-            </p>
+            <span className="eyebrow"><Sparkles size={15} /> {t.simple}</span>
+            <h1>{t.title}</h1>
+            <p>{t.intro}</p>
             <div className="how-welcome-pill">
               <Coins size={23} />
-              <strong>5 000 стартових монет</strong>
-              <span>без депозиту</span>
+              <strong>{t.starting}</strong>
+              <span>{t.noDeposit}</span>
             </div>
           </div>
 
-          <ol className="how-steps" aria-label="Як почати грати в CASTA">
-            {steps.map(({ icon: Icon, title, description, tag }, index) => (
+          <ol className="how-steps" aria-label={t.stepsLabel}>
+            {t.steps.map(({ icon: Icon, title, description, tag }, index) => (
               <li className="how-step-card" key={title}>
                 <span className="how-step-number">{String(index + 1).padStart(2, "0")}</span>
                 <div className="how-step-copy">
@@ -141,17 +118,11 @@ export default function HowItWorksPage() {
               />
             </div>
             <div className="how-currency-copy">
-              <span className="eyebrow"><ShieldCheck size={15} /> 100% віртуальна валюта</span>
-              <h2>Монети — для гри, прогресу й колекції</h2>
-              <p>
-                Віртуальні монети не є грошима. Їх не можна купити, вивести або
-                обміняти на готівку чи призи — це лише частина досвіду CASTA.
-              </p>
+              <span className="eyebrow"><ShieldCheck size={15} /> {t.currency}</span>
+              <h2>{t.coinTitle}</h2>
+              <p>{t.coinText}</p>
               <ul className="how-check-list">
-                <li><CheckCircle2 size={18} /> Жодних платежів або депозитів</li>
-                <li><CheckCircle2 size={18} /> 5 000 монет для нового профілю</li>
-                <li><CheckCircle2 size={18} /> Щоденні бонуси від 250 до 2 500</li>
-                <li><CheckCircle2 size={18} /> Ігри та косметичні колекції</li>
+                {t.checks.map((item) => <li key={item}><CheckCircle2 size={18} /> {item}</li>)}
               </ul>
             </div>
           </article>
@@ -161,12 +132,12 @@ export default function HowItWorksPage() {
       <section className="how-faq-section">
         <div className="site-container how-faq-wrap">
           <div className="section-heading how-faq-heading">
-            <span className="eyebrow"><Sparkles size={15} /> Коротко про головне</span>
-            <h2>Часті запитання</h2>
+            <span className="eyebrow"><Sparkles size={15} /> {t.essential}</span>
+            <h2>{t.faq}</h2>
           </div>
 
           <div className="how-faq-list">
-            {questions.map(({ question, answer }, index) => (
+            {t.questions.map(({ question, answer }, index) => (
               <details className="how-faq-item" key={question} open={index === 0}>
                 <summary>
                   <span>{question}</span>
@@ -179,16 +150,16 @@ export default function HowItWorksPage() {
 
           <div className="how-cta">
             <div>
-              <span className="eyebrow"><Gamepad2 size={15} /> Твій перший раунд</span>
-              <h2>Готовий зробити перший оберт?</h2>
-              <p>Гостьовий режим доступний одразу. Акаунт збереже твій прогрес і нагороди.</p>
+              <span className="eyebrow"><Gamepad2 size={15} /> {t.first}</span>
+              <h2>{t.ready}</h2>
+              <p>{t.guest}</p>
             </div>
             <div className="how-cta-actions">
               <Link href="/games/jungle-wheel" className="button button-primary">
-                Грати безкоштовно <ArrowRight size={18} />
+                {t.play} <ArrowRight size={18} />
               </Link>
               <Link href="/rewards" className="button button-secondary">
-                Переглянути нагороди
+                {t.rewards}
               </Link>
             </div>
           </div>
