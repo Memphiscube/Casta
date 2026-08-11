@@ -2999,6 +2999,9 @@ a {
 .privacy-section li { position: relative; padding-left: 25px; }
 .privacy-section li::before { position: absolute; left: 2px; top: 0.73em; width: 7px; height: 7px; border-radius: 50%; content: ""; background: var(--lime); box-shadow: 0 0 12px rgba(185, 247, 109, 0.35); }
 .privacy-section ul + p { margin-top: 18px; }
+.legal-inline-link { color: var(--lime); font-weight: 800; text-decoration: underline; text-decoration-color: rgba(185, 247, 109, 0.35); text-underline-offset: 3px; }
+.legal-inline-link:hover { color: #d3ff9e; text-decoration-color: currentColor; }
+.terms-hero { background: radial-gradient(circle at 18% 20%, rgba(185, 247, 109, 0.1), transparent 28rem), radial-gradient(circle at 82% 70%, rgba(255, 201, 107, 0.12), transparent 31rem), linear-gradient(145deg, #0b1512, #090611 72%); }
 
 .privacy-operator-card { margin-top: 20px; padding: 22px; border: 1px solid rgba(255, 201, 107, 0.18); border-radius: 18px; background: linear-gradient(135deg, rgba(255, 201, 107, 0.07), rgba(167, 139, 250, 0.055)); }
 .privacy-operator-title { display: flex; align-items: center; gap: 10px; margin-bottom: 17px; color: var(--gold); }
