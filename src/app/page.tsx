@@ -6,8 +6,6 @@ import {
   Play,
   ShieldCheck,
   Sparkles,
-  Trophy,
-  Users,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,25 +45,33 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero-showcase" aria-label="Jungle Wheel — гра сезону">
-            <div className="showcase-topline">
-              <span>Гра сезону</span>
-              <span className="live-dot">Live</span>
+          <div className="hero-showcase welcome-offer" aria-label="5 000 стартових монет у CASTA">
+            <div className="welcome-offer-art" aria-hidden="true">
+              <span className="welcome-orbit welcome-orbit-one" />
+              <span className="welcome-orbit welcome-orbit-two" />
+              <span className="welcome-coin welcome-coin-one"><Coins size={22} /></span>
+              <span className="welcome-coin welcome-coin-two"><Sparkles size={20} /></span>
+              <Image
+                className="welcome-character"
+                src="/casta-crownkeeper.png"
+                alt=""
+                width={1254}
+                height={1254}
+                priority
+              />
             </div>
-            <div className="showcase-wheel">
-              <div className="mini-wheel">
-                <span className="mini-wheel-center"><Sparkles size={30} /></span>
-              </div>
-              <div className="floating-chip chip-one"><Trophy size={18} /> ×10</div>
-              <div className="floating-chip chip-two"><Coins size={18} /> +500</div>
-            </div>
-            <div className="showcase-copy">
-              <span>Jungle Wheel</span>
-              <strong>Крути. Збирай. Повертайся.</strong>
-              <div>
-                <span><Users size={15} /> 1 284 онлайн</span>
-                <span><Flame size={15} /> 7-денна серія</span>
-              </div>
+            <div className="welcome-offer-copy">
+              <span className="welcome-status"><i /> Новий гравець</span>
+              <span className="welcome-kicker">Welcome bonus</span>
+              <h2>
+                <strong>5 000</strong>
+                <small>стартових монет</small>
+              </h2>
+              <p>Твій перший клубний запас уже готовий. Грай безкоштовно та збирай свою колекцію.</p>
+              <a href="#home-games" className="welcome-play-button">
+                <Play size={19} fill="currentColor" /> Play game <ArrowRight size={20} />
+              </a>
+              <span className="welcome-virtual-note"><ShieldCheck size={16} /> Лише віртуальна валюта</span>
             </div>
           </div>
         </div>
@@ -126,7 +132,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-block">
+      <section className="section-block home-games-section" id="home-games">
         <div className="site-container">
           <div className="section-heading split-heading">
             <div>
