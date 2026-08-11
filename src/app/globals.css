@@ -176,12 +176,15 @@ a {
 
 .club-notice-strip {
   overflow: hidden;
-  border-top: 1px solid rgba(255, 201, 107, 0.16);
-  border-bottom: 1px solid rgba(255, 201, 107, 0.22);
+  border-top: 1px solid rgba(255, 201, 107, 0.13);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.18);
   background:
-    radial-gradient(circle at 50% -90%, rgba(255, 173, 66, 0.16), transparent 52%),
-    linear-gradient(90deg, #210305 0%, #130204 48%, #210305 100%);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+    radial-gradient(circle at 50% -180%, rgba(255, 201, 107, 0.15), transparent 55%),
+    radial-gradient(circle at 14% 160%, rgba(167, 139, 250, 0.11), transparent 34%),
+    linear-gradient(90deg, #0d0916 0%, #1b1128 50%, #0d0916 100%);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.03),
+    0 8px 26px rgba(4, 2, 9, 0.24);
 }
 
 .club-notice-inner {
