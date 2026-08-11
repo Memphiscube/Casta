@@ -34,6 +34,18 @@ export type Game = {
 
 export const games: Game[] = [
   {
+    slug: "golden-reef",
+    title: "Golden Reef",
+    description: localized("Dive into 5×3 reef slots with eight paylines and a shared profile balance.", "Ponoř se do automatů 5×3 s osmi výherními liniemi a společným zůstatkem profilu."),
+    category: "slots",
+    badge: localized("Play now", "Hrát nyní"),
+    players: localized("New game", "Nová hra"),
+    accent: "gold",
+    icon: Fish,
+    image: "/games/golden-reef.png",
+    available: true,
+  },
+  {
     slug: "jungle-wheel",
     title: "Jungle Wheel",
     description: localized("Spin the jungle wheel, collect combos and unlock seasonal trophies.", "Roztoč kolo džungle, sbírej kombinace a odemykej sezónní trofeje."),
@@ -91,18 +103,6 @@ export const games: Game[] = [
     accent: "coral",
     icon: Dices,
     image: "/games/neon-seven.png",
-    available: false,
-  },
-  {
-    slug: "golden-reef",
-    title: "Golden Reef",
-    description: localized("Dive for golden treasure and collect ocean talismans.", "Ponoř se za zlatými poklady a sbírej mořské talismany."),
-    category: "slots",
-    badge: localized("Coming soon", "Již brzy"),
-    players: localized("In development", "Ve vývoji"),
-    accent: "gold",
-    icon: Fish,
-    image: "/games/golden-reef.png",
     available: false,
   },
   {
