@@ -1,37 +1,38 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Gamepad2, Info } from "lucide-react";
 
 import { GameCard } from "@/components/game-card";
+import { useI18n } from "@/components/i18n-provider";
 import { games } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Каталог ігор",
-  description: "Безкоштовні social casino ігри CASTA з віртуальними монетами.",
-};
+const copy = {
+  en: { room: "Game room", title: "Find your game", intro: "Quick sessions, club missions and cosmetic collections. Every game is free and uses virtual coins only.", categories: "Game categories", all: "All games", wheel: "Wheel", slots: "Slots", cards: "Cards", notice: "Virtual winnings cannot be exchanged for money, goods or services." },
+  cs: { room: "Herní místnost", title: "Najdi svou hru", intro: "Rychlé herní seance, klubové mise a kosmetické sbírky. Všechny hry jsou zdarma a používají pouze virtuální mince.", categories: "Kategorie her", all: "Všechny hry", wheel: "Kolo", slots: "Automaty", cards: "Karty", notice: "Virtuální výhry nelze směnit za peníze, zboží ani služby." },
+} as const;
 
 export default function GamesPage() {
+  const { locale } = useI18n();
+  const t = copy[locale];
   return (
     <div className="page-shell">
       <div className="site-container">
         <header className="section-heading">
-          <span className="eyebrow"><Gamepad2 size={15} /> Ігрова кімната</span>
-          <h1>Знайди свою гру</h1>
-          <p>
-            Швидкі сесії, клубні місії та косметичні колекції. Усі ігри
-            безкоштовні й використовують лише віртуальні монети.
-          </p>
+          <span className="eyebrow"><Gamepad2 size={15} /> {t.room}</span>
+          <h1>{t.title}</h1>
+          <p>{t.intro}</p>
         </header>
 
         <div className="catalog-toolbar">
-          <div className="filter-pills" aria-label="Категорії ігор">
-            <span className="filter-pill active">Усі ігри</span>
-            <span className="filter-pill">Колесо</span>
-            <span className="filter-pill">Слоти</span>
-            <span className="filter-pill">Карткові</span>
+          <div className="filter-pills" aria-label={t.categories}>
+            <span className="filter-pill active">{t.all}</span>
+            <span className="filter-pill">{t.wheel}</span>
+            <span className="filter-pill">{t.slots}</span>
+            <span className="filter-pill">{t.cards}</span>
           </div>
           <div className="notice-card">
             <Info size={18} />
-            <span>Віртуальні виграші не можна обміняти на гроші, товари чи послуги.</span>
+            <span>{t.notice}</span>
           </div>
         </div>
 
