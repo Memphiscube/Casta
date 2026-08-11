@@ -104,14 +104,19 @@ export function AuthForm({ initialMode = "login", presentation = "page", onAuthe
     }
 
     setSubmitting(true);
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/profile` },
+      options: {
+        redirectTo: `${window.location.origin}/profile`,
+        skipBrowserRedirect: true,
+      },
     });
-    if (error) {
-      setMessage({ type: "error", text: error.message || t.googleError });
+    if (error || !data.url) {
+      setMessage({ type: "error", text: error?.message || t.googleError });
       setSubmitting(false);
+      return;
     }
+    window.location.assign(data.url);
   }
 
   return (
