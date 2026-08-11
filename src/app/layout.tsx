@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { AuthProvider } from "@/components/auth-provider";
 import { FloatingBackground } from "@/components/floating-background";
+import { I18nProvider } from "@/components/i18n-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -16,15 +17,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   title: {
-    default: "CASTA — social casino для гри й колекцій",
+    default: "CASTA — free social casino for play and collections",
     template: "%s · CASTA",
   },
   description:
-    "Грай безкоштовно, збирай віртуальні монети та відкривай клубні нагороди. Жодних ставок або виграшів у реальних грошах.",
+    "Play for free, collect virtual coins and unlock club rewards. No real-money betting or prizes.",
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "CASTA — грай заради моменту",
-    description: "Social casino з віртуальними монетами, колекціями та щоденними нагородами.",
+    title: "CASTA — play for the moment",
+    description: "A social casino with virtual coins, collections and daily rewards.",
     type: "website",
     locale: "uk_UA",
     images: [
@@ -32,28 +33,30 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1729,
         height: 910,
-        alt: "CASTA — social casino з віртуальними монетами",
+        alt: "CASTA — social casino with virtual coins",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CASTA — грай заради моменту",
-    description: "Social casino з віртуальними монетами, колекціями та щоденними нагородами.",
+    title: "CASTA — play for the moment",
+    description: "A social casino with virtual coins, collections and daily rewards.",
     images: ["/og.png"],
   },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="uk">
+    <html lang="en">
       <body>
-        <AuthProvider>
-          <FloatingBackground />
-          <SiteHeader />
-          <main>{children}</main>
-          <SiteFooter />
-        </AuthProvider>
+        <I18nProvider>
+          <AuthProvider>
+            <FloatingBackground />
+            <SiteHeader />
+            <main>{children}</main>
+            <SiteFooter />
+          </AuthProvider>
+        </I18nProvider>
       </body>
     </html>
   );

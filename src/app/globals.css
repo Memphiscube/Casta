@@ -257,6 +257,37 @@ a {
   gap: 9px;
 }
 
+.language-switcher {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.language-switcher button {
+  min-width: 31px;
+  height: 28px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 8px;
+  color: #8f829f;
+  background: transparent;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+
+.language-switcher button.active {
+  color: #16200e;
+  background: var(--lime);
+  box-shadow: 0 5px 14px rgba(185, 247, 109, 0.16);
+}
+
 .balance-pill,
 .avatar-button,
 .menu-button {

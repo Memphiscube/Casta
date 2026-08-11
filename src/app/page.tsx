@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -11,9 +13,36 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { GameCard } from "@/components/game-card";
+import { localize, useI18n } from "@/components/i18n-provider";
 import { dailyRewards, games } from "@/lib/data";
 
+const homeCopy = {
+  en: {
+    season: "Season 01 · Wild Club", heroStart: "Play for the ", moment: "moment.", heroEnd: "Stay for your people.",
+    lead: "CASTA is a social casino where the collection, your progress and an evening with friends matter more than any stake.",
+    playFree: "Play for free", browse: "Browse games", noDeposits: "No deposits", adults: "18+ only", virtualOnly: "Virtual coins only",
+    offerAria: "5,000 starting coins at CASTA", sceneAlt: "Crownkeeper on a mountain of virtual coins in front of the CASTA club",
+    startingCoins: "starting coins", offerText: "Your club balance is ready. Play for free and build your collection.", playGame: "Play game", virtualCurrency: "Virtual currency only",
+    perksAria: "CASTA benefits", gift: "Free gift", days: "7 days", streak: "reward streak", moreDaily: "More every day", forFun: "play for fun",
+    inClub: "Now in the club", nextFavorite: "Your next favorite", allGames: "All games", clubSystem: "Club system",
+    dailyReason: "A new reason to return every day", clubText: "Build your login streak, level up and spend coins only on cosmetic items. Your progress, with no pressure.", openRewards: "Open rewards", day: "Day", welcomeBonus: "Welcome bonus", welcomePack: "Welcome pack", dailyStreak: "Daily streak", playForFun: "Play for fun", socialCasino: "Social casino",
+  },
+  cs: {
+    season: "Sezóna 01 · Wild Club", heroStart: "Hraj pro ", moment: "okamžik.", heroEnd: "Zůstaň pro své lidi.",
+    lead: "CASTA je social casino, kde jsou sbírka, pokrok a večer s přáteli důležitější než jakákoli sázka.",
+    playFree: "Hrát zdarma", browse: "Prohlédnout hry", noDeposits: "Bez vkladů", adults: "Pouze 18+", virtualOnly: "Pouze virtuální mince",
+    offerAria: "5 000 startovních mincí v CASTA", sceneAlt: "Crownkeeper na hoře virtuálních mincí před klubem CASTA",
+    startingCoins: "startovních mincí", offerText: "Tvůj klubový zůstatek je připraven. Hraj zdarma a buduj svou sbírku.", playGame: "Hrát", virtualCurrency: "Pouze virtuální měna",
+    perksAria: "Výhody CASTA", gift: "Dárek zdarma", days: "7 dní", streak: "série odměn", moreDaily: "Každý den více", forFun: "hra pro zábavu",
+    inClub: "Právě v klubu", nextFavorite: "Tvůj další favorit", allGames: "Všechny hry", clubSystem: "Klubový systém",
+    dailyReason: "Každý den nový důvod vrátit se", clubText: "Buduj sérii přihlášení, zvyšuj úroveň a utrácej mince jen za kosmetické předměty. Tvůj pokrok bez tlaku.", openRewards: "Otevřít odměny", day: "Den", welcomeBonus: "Uvítací bonus", welcomePack: "Uvítací balíček", dailyStreak: "Denní série", playForFun: "Hra pro zábavu", socialCasino: "Social casino",
+  },
+} as const;
+
 export default function HomePage() {
+  const { locale, numberLocale } = useI18n();
+  const copy = homeCopy[locale];
+
   return (
     <>
       <section className="hero-section">
@@ -21,41 +50,38 @@ export default function HomePage() {
         <div className="hero-glow hero-glow-two" />
         <div className="site-container hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow"><Sparkles size={15} /> Сезон 01 · Wild Club</span>
+            <span className="eyebrow"><Sparkles size={15} /> {copy.season}</span>
             <h1>
-              Грай заради <em>моменту.</em>
-              <br />Залишайся заради своїх.
+              {copy.heroStart}<em>{copy.moment}</em>
+              <br />{copy.heroEnd}
             </h1>
-            <p className="hero-lead">
-              CASTA — це social casino, де цінність має не ставка, а колекція,
-              прогрес і вечір із друзями.
-            </p>
+            <p className="hero-lead">{copy.lead}</p>
             <div className="hero-actions">
               <Link href="/games/jungle-wheel" className="button button-primary">
-                <Play size={18} fill="currentColor" /> Грати безкоштовно
+                <Play size={18} fill="currentColor" /> {copy.playFree}
               </Link>
               <Link href="/games" className="button button-secondary">
-                Переглянути ігри <ArrowRight size={18} />
+                {copy.browse} <ArrowRight size={18} />
               </Link>
             </div>
             <div className="trust-row">
-              <span><CheckCircle2 size={16} /> Без депозитів</span>
-              <span><ShieldCheck size={16} /> Лише 18+</span>
-              <span><Coins size={16} /> Тільки virtual coins</span>
+              <span><CheckCircle2 size={16} /> {copy.noDeposits}</span>
+              <span><ShieldCheck size={16} /> {copy.adults}</span>
+              <span><Coins size={16} /> {copy.virtualOnly}</span>
             </div>
           </div>
 
-          <div className="hero-showcase welcome-offer" aria-label="5 000 стартових монет у CASTA">
+          <div className="hero-showcase welcome-offer" aria-label={copy.offerAria}>
             <Image
               className="welcome-scene"
               src="/casta-welcome-scene.webp"
-              alt="Crownkeeper на горі віртуальних монет перед клубом CASTA"
+              alt={copy.sceneAlt}
               fill
               sizes="(max-width: 860px) 560px, 43vw"
               priority
             />
             <div className="welcome-offer-copy">
-              <span className="welcome-kicker">Welcome bonus</span>
+              <span className="welcome-kicker">{copy.welcomeBonus}</span>
               <h2>
                 <Image
                   className="welcome-5000"
@@ -64,19 +90,19 @@ export default function HomePage() {
                   width={1536}
                   height={1024}
                 />
-                <small>стартових монет</small>
+                <small>{copy.startingCoins}</small>
               </h2>
-              <p>Твій клубний запас уже готовий. Грай безкоштовно та збирай свою колекцію.</p>
+              <p>{copy.offerText}</p>
               <a href="#home-games" className="welcome-play-button">
-                <Play size={19} fill="currentColor" /> Play game <ArrowRight size={20} />
+                <Play size={19} fill="currentColor" /> {copy.playGame} <ArrowRight size={20} />
               </a>
-              <span className="welcome-virtual-note"><ShieldCheck size={16} /> Лише віртуальна валюта</span>
+              <span className="welcome-virtual-note"><ShieldCheck size={16} /> {copy.virtualCurrency}</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="perks-strip" aria-label="Переваги CASTA">
+      <section className="perks-strip" aria-label={copy.perksAria}>
         <div className="site-container perks-grid">
           <article className="perk-banner perk-banner-gold">
             <Image
@@ -88,10 +114,10 @@ export default function HomePage() {
               aria-hidden="true"
             />
             <div className="perk-copy">
-              <span className="perk-kicker">Welcome pack</span>
+              <span className="perk-kicker">{copy.welcomePack}</span>
               <strong>5 000</strong>
-              <p>стартових монет</p>
-              <span className="perk-badge">У подарунок</span>
+              <p>{copy.startingCoins}</p>
+              <span className="perk-badge">{copy.gift}</span>
             </div>
           </article>
 
@@ -105,10 +131,10 @@ export default function HomePage() {
               aria-hidden="true"
             />
             <div className="perk-copy">
-              <span className="perk-kicker">Daily streak</span>
-              <strong>7 днів</strong>
-              <p>серія нагород</p>
-              <span className="perk-badge">Щодня більше</span>
+              <span className="perk-kicker">{copy.dailyStreak}</span>
+              <strong>{copy.days}</strong>
+              <p>{copy.streak}</p>
+              <span className="perk-badge">{copy.moreDaily}</span>
             </div>
           </article>
 
@@ -122,10 +148,10 @@ export default function HomePage() {
               aria-hidden="true"
             />
             <div className="perk-copy">
-              <span className="perk-kicker">Play for fun</span>
+              <span className="perk-kicker">{copy.playForFun}</span>
               <strong>100%</strong>
-              <p>гра заради розваги</p>
-              <span className="perk-badge">Social casino</span>
+              <p>{copy.forFun}</p>
+              <span className="perk-badge">{copy.socialCasino}</span>
             </div>
           </article>
         </div>
@@ -135,10 +161,10 @@ export default function HomePage() {
         <div className="site-container">
           <div className="section-heading split-heading">
             <div>
-              <span className="eyebrow"><Flame size={15} /> Зараз у клубі</span>
-              <h2>Твій наступний фаворит</h2>
+              <span className="eyebrow"><Flame size={15} /> {copy.inClub}</span>
+              <h2>{copy.nextFavorite}</h2>
             </div>
-            <Link href="/games" className="text-link">Усі ігри <ArrowRight size={17} /></Link>
+            <Link href="/games" className="text-link">{copy.allGames} <ArrowRight size={17} /></Link>
           </div>
           <div className="games-grid home-games">
             {games.slice(0, 12).map((game) => (
@@ -153,23 +179,20 @@ export default function HomePage() {
           <div>
             <span className="eyebrow">
               <Image className="eyebrow-3d-symbol" src="/games/jungle-wheel-treasure-chest.png" alt="" width={28} height={28} />
-              Клубна система
+              {copy.clubSystem}
             </span>
-            <h2>Щодня — нова причина повернутися</h2>
-            <p>
-              Збирай серію входів, підвищуй рівень і витрачай монети лише на
-              косметичні предмети. Прогрес твій — тиску немає.
-            </p>
+            <h2>{copy.dailyReason}</h2>
+            <p>{copy.clubText}</p>
             <Link href="/rewards" className="button button-primary">
-              Відкрити нагороди <ArrowRight size={18} />
+              {copy.openRewards} <ArrowRight size={18} />
             </Link>
           </div>
           <div className="reward-preview">
             {dailyRewards.map(({ day, coins, image, alt }) => (
               <div key={day} className={day <= 3 ? "reward-day claimed" : day === 4 ? "reward-day current" : "reward-day"}>
-                <span>День {day}</span>
-                <Image className="reward-day-symbol" src={image} alt={alt} width={66} height={66} />
-                <strong>{coins.toLocaleString("uk-UA")}</strong>
+                <span>{copy.day} {day}</span>
+                <Image className="reward-day-symbol" src={image} alt={localize(alt, locale)} width={66} height={66} />
+                <strong>{coins.toLocaleString(numberLocale)}</strong>
               </div>
             ))}
           </div>
