@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AuthProvider } from "@/components/auth-provider";
+import { FloatingBackground } from "@/components/floating-background";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="uk">
       <body>
         <AuthProvider>
+          <FloatingBackground />
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
