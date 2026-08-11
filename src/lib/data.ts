@@ -13,14 +13,19 @@ import {
   Sun,
   type LucideIcon,
 } from "lucide-react";
+import type { LocalizedText } from "@/components/i18n-provider";
+
+export type GameCategory = "wheel" | "slots" | "cards";
+
+const localized = (en: string, cs: string): LocalizedText => ({ en, cs });
 
 export type Game = {
   slug: string;
   title: string;
-  description: string;
-  category: "Колесо" | "Слоти" | "Карткова";
-  badge: string;
-  players: string;
+  description: LocalizedText;
+  category: GameCategory;
+  badge: LocalizedText;
+  players: LocalizedText;
   accent: string;
   icon: LucideIcon;
   image?: string;
@@ -31,10 +36,10 @@ export const games: Game[] = [
   {
     slug: "jungle-wheel",
     title: "Jungle Wheel",
-    description: "Крути колесо джунглів, збирай комбо та відкривай сезонні трофеї.",
-    category: "Колесо",
-    badge: "Грай зараз",
-    players: "1 284 онлайн",
+    description: localized("Spin the jungle wheel, collect combos and unlock seasonal trophies.", "Roztoč kolo džungle, sbírej kombinace a odemykej sezónní trofeje."),
+    category: "wheel",
+    badge: localized("Play now", "Hrát nyní"),
+    players: localized("1,284 online", "1 284 online"),
     accent: "lime",
     icon: Banana,
     image: "/games/jungle-wheel.png",
@@ -43,10 +48,10 @@ export const games: Game[] = [
   {
     slug: "cherry-club",
     title: "Cherry Club",
-    description: "Неонові слоти 5×5 із десятьма лініями та спільним балансом профілю.",
-    category: "Слоти",
-    badge: "Грай зараз",
-    players: "Нова гра",
+    description: localized("Neon 5×5 slots with ten paylines and your shared profile balance.", "Neonové automaty 5×5 s deseti výherními liniemi a společným zůstatkem profilu."),
+    category: "slots",
+    badge: localized("Play now", "Hrát nyní"),
+    players: localized("New game", "Nová hra"),
     accent: "coral",
     icon: Cherry,
     image: "/games/cherry-club.png",
@@ -55,10 +60,10 @@ export const games: Game[] = [
   {
     slug: "moon-mansion",
     title: "Moon Mansion",
-    description: "Збирай магічні ключі та проходь кімнати старого маєтку.",
-    category: "Слоти",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("Collect magical keys and explore the rooms of an old mansion.", "Sbírej kouzelné klíče a procházej pokoji starého sídla."),
+    category: "slots",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "violet",
     icon: Ghost,
     image: "/games/moon-mansion.png",
@@ -67,10 +72,10 @@ export const games: Game[] = [
   {
     slug: "gem-society",
     title: "Gem Society",
-    description: "Карткова колекція, клубні дуелі та косметичні нагороди.",
-    category: "Карткова",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("Card collections, club duels and cosmetic rewards.", "Karetní sbírky, klubové souboje a kosmetické odměny."),
+    category: "cards",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "gold",
     icon: Gem,
     image: "/games/gem-society.png",
@@ -79,10 +84,10 @@ export const games: Game[] = [
   {
     slug: "neon-seven",
     title: "Neon Seven",
-    description: "Яскраві неонові барабани, серії сімок і нічні клубні місії.",
-    category: "Слоти",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("Bright neon reels, chains of sevens and night-time club missions.", "Jasné neonové válce, série sedmiček a noční klubové mise."),
+    category: "slots",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "coral",
     icon: Dices,
     image: "/games/neon-seven.png",
@@ -91,10 +96,10 @@ export const games: Game[] = [
   {
     slug: "golden-reef",
     title: "Golden Reef",
-    description: "Пірнай за золотими скарбами та збирай колекцію морських талісманів.",
-    category: "Слоти",
-    badge: "Скоро",
-    players: "У розробці",
+    description: localized("Dive for golden treasure and collect ocean talismans.", "Ponoř se za zlatými poklady a sbírej mořské talismany."),
+    category: "slots",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "gold",
     icon: Fish,
     image: "/games/golden-reef.png",
@@ -103,10 +108,10 @@ export const games: Game[] = [
   {
     slug: "royal-cards",
     title: "Royal Cards",
-    description: "Швидкі карткові партії, королівські комбінації та клубні турніри.",
-    category: "Карткова",
-    badge: "Скоро",
-    players: "У розробці",
+    description: localized("Fast card rounds, royal combinations and club tournaments.", "Rychlé karetní partie, královské kombinace a klubové turnaje."),
+    category: "cards",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "violet",
     icon: Crown,
     image: "/games/royal-cards.png",
@@ -115,10 +120,10 @@ export const games: Game[] = [
   {
     slug: "cosmic-spin",
     title: "Cosmic Spin",
-    description: "Космічне колесо з орбітальними бонусами та сезонними артефактами.",
-    category: "Колесо",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("A cosmic wheel with orbital bonuses and seasonal artifacts.", "Vesmírné kolo s orbitálními bonusy a sezónními artefakty."),
+    category: "wheel",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "violet",
     icon: Orbit,
     image: "/games/cosmic-spin.png",
@@ -127,10 +132,10 @@ export const games: Game[] = [
   {
     slug: "lucky-garden",
     title: "Lucky Garden",
-    description: "Вирощуй щасливу колекцію конюшини й відкривай зелені джекпоти.",
-    category: "Слоти",
-    badge: "Скоро",
-    players: "У розробці",
+    description: localized("Grow a lucky clover collection and unlock green jackpots.", "Pěstuj šťastnou sbírku čtyřlístků a odemykej zelené jackpoty."),
+    category: "slots",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "lime",
     icon: Clover,
     image: "/games/lucky-garden.png",
@@ -139,10 +144,10 @@ export const games: Game[] = [
   {
     slug: "midnight-poker",
     title: "Midnight Poker",
-    description: "Стильні нічні роздачі, дружні дуелі та нагороди за серії перемог.",
-    category: "Карткова",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("Stylish night hands, friendly duels and win-streak rewards.", "Stylové noční partie, přátelské souboje a odměny za série výher."),
+    category: "cards",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "coral",
     icon: Spade,
     image: "/games/midnight-poker.png",
@@ -151,10 +156,10 @@ export const games: Game[] = [
   {
     slug: "desert-fortune",
     title: "Desert Fortune",
-    description: "Обертай колесо пустелі й знаходь сонячні реліквії давніх клубів.",
-    category: "Колесо",
-    badge: "Скоро",
-    players: "У розробці",
+    description: localized("Spin the desert wheel and discover sun relics of ancient clubs.", "Roztoč pouštní kolo a objevuj sluneční relikvie dávných klubů."),
+    category: "wheel",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "gold",
     icon: Sun,
     image: "/games/desert-fortune.png",
@@ -163,10 +168,10 @@ export const games: Game[] = [
   {
     slug: "candy-vault",
     title: "Candy Vault",
-    description: "Збирай солодкі комбінації та відкривай барвисті косметичні призи.",
-    category: "Слоти",
-    badge: "Незабаром",
-    players: "У розробці",
+    description: localized("Collect sweet combinations and unlock colorful cosmetic prizes.", "Sbírej sladké kombinace a odemykej barevné kosmetické odměny."),
+    category: "slots",
+    badge: localized("Coming soon", "Již brzy"),
+    players: localized("In development", "Ve vývoji"),
     accent: "lime",
     icon: Candy,
     image: "/games/candy-vault.png",
@@ -175,41 +180,41 @@ export const games: Game[] = [
 ];
 
 export const dailyRewards = [
-  { day: 1, coins: 250, image: "/games/jungle-wheel-coins.png", alt: "Золоті клубні монети" },
-  { day: 2, coins: 350, image: "/games/jungle-wheel-amethyst.png", alt: "Фіолетовий самоцвіт" },
-  { day: 3, coins: 500, image: "/games/jungle-wheel-treasure-chest.png", alt: "Скриня нагород" },
-  { day: 4, coins: 650, image: "/games/jungle-wheel-temple-crown.png", alt: "Золота клубна корона" },
-  { day: 5, coins: 900, image: "/games/jungle-wheel-explorer-trophy.png", alt: "Клубний трофей" },
-  { day: 6, coins: 1_250, image: "/games/jungle-wheel-jaguar-mask.png", alt: "Золота маска ягуара" },
-  { day: 7, coins: 2_500, image: "/games/cherry-symbols/diamond.png", alt: "Королівський діамант" },
+  { day: 1, coins: 250, image: "/games/jungle-wheel-coins.png", alt: localized("Golden club coins", "Zlaté klubové mince") },
+  { day: 2, coins: 350, image: "/games/jungle-wheel-amethyst.png", alt: localized("Purple gemstone", "Fialový drahokam") },
+  { day: 3, coins: 500, image: "/games/jungle-wheel-treasure-chest.png", alt: localized("Reward chest", "Truhla s odměnou") },
+  { day: 4, coins: 650, image: "/games/jungle-wheel-temple-crown.png", alt: localized("Golden club crown", "Zlatá klubová koruna") },
+  { day: 5, coins: 900, image: "/games/jungle-wheel-explorer-trophy.png", alt: localized("Club trophy", "Klubová trofej") },
+  { day: 6, coins: 1_250, image: "/games/jungle-wheel-jaguar-mask.png", alt: localized("Golden jaguar mask", "Zlatá maska jaguára") },
+  { day: 7, coins: 2_500, image: "/games/cherry-symbols/diamond.png", alt: localized("Royal diamond", "Královský diamant") },
 ];
 
 export const shopItems = [
   {
     slug: "midnight-avatar",
     name: "Midnight Crown",
-    type: "Рамка аватара",
+    type: localized("Avatar frame", "Rámeček avatara"),
     price: 2_400,
     accent: "violet",
   },
   {
     slug: "jungle-trail",
     name: "Jungle Trail",
-    type: "Ефект перемоги",
+    type: localized("Victory effect", "Efekt vítězství"),
     price: 3_200,
     accent: "lime",
   },
   {
     slug: "coral-card",
     name: "Coral Club",
-    type: "Тема профілю",
+    type: localized("Profile theme", "Motiv profilu"),
     price: 1_800,
     accent: "coral",
   },
   {
     slug: "founder-pin",
     name: "Founder Pin",
-    type: "Колекційний значок",
+    type: localized("Collectible badge", "Sběratelský odznak"),
     price: 5_000,
     accent: "gold",
   },
