@@ -90,33 +90,24 @@ export function AuthForm({ initialMode = "login", presentation = "page", onAuthe
     setSubmitting(false);
   }
 
-  async function continueWithGoogle() {
+  function continueWithGoogle() {
     setMessage(null);
     if (mode === "signup" && !accepted) {
       setMessage({ type: "error", text: t.age });
       return;
     }
 
-    const supabase = getSupabaseBrowserClient();
-    if (!supabase) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (!supabaseUrl) {
       setMessage({ type: "error", text: t.missing });
       return;
     }
 
     setSubmitting(true);
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/profile`,
-        skipBrowserRedirect: true,
-      },
-    });
-    if (error || !data.url) {
-      setMessage({ type: "error", text: error?.message || t.googleError });
-      setSubmitting(false);
-      return;
-    }
-    window.location.assign(data.url);
+    const authorizeUrl = new URL("/auth/v1/authorize", supabaseUrl);
+    authorizeUrl.searchParams.set("provider", "google");
+    authorizeUrl.searchParams.set("redirect_to", `${window.location.origin}/profile`);
+    window.location.assign(authorizeUrl.toString());
   }
 
   return (
@@ -170,7 +161,7 @@ export function AuthForm({ initialMode = "login", presentation = "page", onAuthe
       </form>
 
       <div className="auth-divider"><span>{t.or}</span></div>
-      <button type="button" className="google-auth-button" disabled={submitting} onClick={() => void continueWithGoogle()}>
+      <button type="button" className="google-auth-button" disabled={submitting} onClick={continueWithGoogle}>
         <GoogleMark />
         {mode === "login" ? t.googleLogin : t.googleSignup}
       </button>
