@@ -3121,7 +3121,7 @@ a {
   .hero-showcase::before {
     background: linear-gradient(180deg, transparent 0%, transparent 40%, rgba(12, 5, 20, 0.78) 53%, rgba(10, 4, 17, 0.98) 72%);
   }
-  .welcome-scene { height: 58%; object-position: center top; transform: scale(1.02); }
+  .welcome-scene { height: 58% !important; bottom: auto !important; object-position: center top; transform: scale(1.02); }
   .hero-showcase:hover .welcome-scene { transform: scale(1.02); }
   .welcome-offer-copy { width: auto; left: 20px; right: 20px; top: auto; bottom: 20px; transform: none; }
   .welcome-kicker { font-size: 10px; }
