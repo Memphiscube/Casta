@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { AuthProvider } from "@/components/auth-provider";
+import { DailyRewardPopup } from "@/components/daily-reward-popup";
 import { FloatingBackground } from "@/components/floating-background";
 import { I18nProvider } from "@/components/i18n-provider";
 import { SiteFooter } from "@/components/site-footer";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             <FloatingBackground />
             <SiteHeader />
             <main>{children}</main>
+            <DailyRewardPopup />
             <SiteFooter />
           </AuthProvider>
         </I18nProvider>
