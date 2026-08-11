@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { useI18n, type LocalizedText } from "@/components/i18n-provider";
 import {
   createGuestSlotSpin,
   createRandomSlotGrid,
@@ -26,13 +27,18 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 const bets = [50, 100, 250, 500];
 
 const symbolMeta = {
-  cherry: { label: "Вишні", src: "/games/cherry-symbols/cherry.png" },
-  clover: { label: "Конюшина", src: "/games/cherry-symbols/clover.png" },
-  bell: { label: "Дзвін", src: "/games/cherry-symbols/bell.png" },
-  crown: { label: "Корона", src: "/games/cherry-symbols/crown.png" },
-  diamond: { label: "Діамант", src: "/games/cherry-symbols/diamond.png" },
-  seven: { label: "Сімка", src: "/games/cherry-symbols/seven.png" },
-} satisfies Record<SlotSymbolKey, { label: string; src: string }>;
+  cherry: { label: { en: "Cherries", cs: "Třešně" }, src: "/games/cherry-symbols/cherry.png" },
+  clover: { label: { en: "Clover", cs: "Čtyřlístek" }, src: "/games/cherry-symbols/clover.png" },
+  bell: { label: { en: "Bell", cs: "Zvon" }, src: "/games/cherry-symbols/bell.png" },
+  crown: { label: { en: "Crown", cs: "Koruna" }, src: "/games/cherry-symbols/crown.png" },
+  diamond: { label: { en: "Diamond", cs: "Diamant" }, src: "/games/cherry-symbols/diamond.png" },
+  seven: { label: { en: "Seven", cs: "Sedmička" }, src: "/games/cherry-symbols/seven.png" },
+} satisfies Record<SlotSymbolKey, { label: LocalizedText; src: string }>;
+
+const copy = {
+  en: { initial: "Match 3 or more identical symbols from left to right.", insufficient: "Not enough coins. Lower your bet or collect the daily reward.", spinningMessage: "The Cherry Club reels are spinning…", error: "The slots could not start. Please try again.", win: (amount: string, lines: number, multiplier: number) => `You won ${amount} coins — ${lines} winning ${lines === 1 ? "line" : "lines"}, total multiplier ×${multiplier}.`, lose: "No lines matched this time. The next spin could be a winner.", lines: "10 lines", upTo: "up to ×25", balance: "Balance", lastWin: "Last win", grid: "Cherry Club game grid, 5 rows by 5 columns", cell: (label: string, row: number, column: number) => `${label}, row ${row}, column ${column}`, paytable: "Maximum multiplier table", decrease: "Decrease bet", increase: "Increase bet", bet: "Bet", spinning: "Spinning…", spin: "Spin slots" },
+  cs: { initial: "Spoj 3 nebo více stejných symbolů zleva doprava.", insufficient: "Nemáš dost mincí. Sniž sázku nebo si vyzvedni denní odměnu.", spinningMessage: "Válce Cherry Club se roztáčejí…", error: "Automaty se nepodařilo spustit. Zkus to znovu.", win: (amount: string, lines: number, multiplier: number) => `Výhra ${amount} mincí — ${lines} výherní ${lines === 1 ? "linie" : "linie"}, celkový násobitel ×${multiplier}.`, lose: "Tentokrát se linie nespojily. Příští roztočení může vyhrát.", lines: "10 linií", upTo: "až ×25", balance: "Zůstatek", lastWin: "Poslední výhra", grid: "Herní pole Cherry Club, 5 řádků a 5 sloupců", cell: (label: string, row: number, column: number) => `${label}, řádek ${row}, sloupec ${column}`, paytable: "Tabulka maximálních násobitelů", decrease: "Snížit sázku", increase: "Zvýšit sázku", bet: "Sázka", spinning: "Roztáčí se…", spin: "Roztočit automaty" },
+} as const;
 
 const paytableSymbols: SlotSymbolKey[] = ["cherry", "bell", "crown", "diamond", "seven"];
 
@@ -41,13 +47,15 @@ function delay(milliseconds: number) {
 }
 
 export function CherryClubSlots() {
+  const { locale, numberLocale } = useI18n();
+  const t = copy[locale];
   const { user, profile, setGuestBalance, refreshProfile } = useAuth();
   const [grid, setGrid] = useState<SlotSymbolKey[]>(initialSlotGrid);
   const [betIndex, setBetIndex] = useState(1);
   const [spinning, setSpinning] = useState(false);
   const [lastWin, setLastWin] = useState<number | null>(null);
   const [winningLines, setWinningLines] = useState<WinningLine[]>([]);
-  const [message, setMessage] = useState("Збери 3 або більше однакових символів зліва направо.");
+  const [message, setMessage] = useState<string | null>(null);
   const shuffleTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const bet = bets[betIndex];
@@ -63,14 +71,14 @@ export function CherryClubSlots() {
   async function spin() {
     if (spinning) return;
     if (profile.balance < bet) {
-      setMessage("Недостатньо монет. Зменш ставку або забери щоденну нагороду.");
+      setMessage(t.insufficient);
       return;
     }
 
     setSpinning(true);
     setLastWin(null);
     setWinningLines([]);
-    setMessage("Барабани Cherry Club обертаються…");
+    setMessage(t.spinningMessage);
 
     const startedAt = Date.now();
     shuffleTimer.current = setInterval(() => setGrid(createRandomSlotGrid()), 90);
@@ -85,7 +93,7 @@ export function CherryClubSlots() {
         shuffleTimer.current = null;
         setSpinning(false);
         setGrid(initialSlotGrid);
-        setMessage(error?.message ?? "Не вдалося запустити слоти. Спробуй ще раз.");
+        setMessage(error?.message ?? t.error);
         return;
       }
       result = data;
@@ -105,12 +113,9 @@ export function CherryClubSlots() {
     else setGuestBalance(result.balance);
 
     if (result.win > 0) {
-      const lineWord = result.winning_lines.length === 1 ? "лінія" : "ліній";
-      setMessage(
-        `Виграш ${result.win.toLocaleString("uk-UA")} монет — ${result.winning_lines.length} ${lineWord}, загальний множник ×${result.multiplier}.`,
-      );
+      setMessage(t.win(result.win.toLocaleString(numberLocale), result.winning_lines.length, result.multiplier));
     } else {
-      setMessage("Цього разу лінії не склалися. Наступний оберт може бути виграшним.");
+      setMessage(t.lose);
     }
 
     setSpinning(false);
@@ -138,19 +143,19 @@ export function CherryClubSlots() {
         <strong>Cherry Club</strong>
         <div className="slot-feature-pills">
           <small>5 × 5</small>
-          <small>10 ліній</small>
-          <small>до ×25</small>
+          <small>{t.lines}</small>
+          <small>{t.upTo}</small>
         </div>
       </header>
 
       <div className="slot-metrics">
         <div className="slot-metric">
-          <span>Баланс</span>
-          <strong>{profile.balance.toLocaleString("uk-UA")} 🪙</strong>
+          <span>{t.balance}</span>
+          <strong>{profile.balance.toLocaleString(numberLocale)} 🪙</strong>
         </div>
         <div className="slot-metric">
-          <span>Останній виграш</span>
-          <strong>{lastWin === null ? "—" : `+${lastWin.toLocaleString("uk-UA")}`}</strong>
+          <span>{t.lastWin}</span>
+          <strong>{lastWin === null ? "—" : `+${lastWin.toLocaleString(numberLocale)}`}</strong>
         </div>
       </div>
 
@@ -159,16 +164,17 @@ export function CherryClubSlots() {
           <span><Cherry size={17} /> Cherry jackpot <Sparkles size={15} /></span>
         </div>
 
-        <div className="slot-grid" role="grid" aria-label="Ігрове поле Cherry Club, 5 рядків на 5 стовпців">
+        <div className="slot-grid" role="grid" aria-label={t.grid}>
           {grid.map((symbol, index) => {
-            const { src, label } = symbolMeta[symbol];
+            const { src, label: labels } = symbolMeta[symbol];
+            const label = labels[locale];
             const row = Math.floor(index / 5) + 1;
             const column = (index % 5) + 1;
             return (
               <div
                 key={`${index}-${symbol}`}
                 role="gridcell"
-                aria-label={`${label}, рядок ${row}, стовпець ${column}`}
+                aria-label={t.cell(label, row, column)}
                 className={`slot-cell symbol-${symbol}${winningCells.has(index) ? " is-winning" : ""}`}
                 style={{ animationDelay: `${-(index % 5) * 45}ms` }}
               >
@@ -188,7 +194,7 @@ export function CherryClubSlots() {
         </div>
       </div>
 
-      <div className="slot-paytable" aria-label="Таблиця максимальних множників">
+      <div className="slot-paytable" aria-label={t.paytable}>
         {paytableSymbols.map((symbol) => {
           const { src, label } = symbolMeta[symbol];
           return (
@@ -202,7 +208,7 @@ export function CherryClubSlots() {
                 sizes="18px"
                 aria-hidden="true"
               />
-              <small>{label}</small>
+              <small>{label[locale]}</small>
               <strong>×{slotPayouts[symbol][5]}</strong>
             </span>
           );
@@ -213,16 +219,16 @@ export function CherryClubSlots() {
         <div className="bet-control cherry-bet-control">
           <button
             type="button"
-            aria-label="Зменшити ставку"
+            aria-label={t.decrease}
             disabled={spinning}
             onClick={() => setBetIndex((value) => Math.max(0, value - 1))}
           >
             <Minus size={17} />
           </button>
-          <span>Ставка<strong>{bet.toLocaleString("uk-UA")} 🪙</strong></span>
+          <span>{t.bet}<strong>{bet.toLocaleString(numberLocale)} 🪙</strong></span>
           <button
             type="button"
-            aria-label="Збільшити ставку"
+            aria-label={t.increase}
             disabled={spinning}
             onClick={() => setBetIndex((value) => Math.min(bets.length - 1, value + 1))}
           >
@@ -231,11 +237,11 @@ export function CherryClubSlots() {
         </div>
         <button type="button" className="button cherry-spin-button" disabled={spinning} onClick={spin}>
           {spinning ? <Sparkles className="spin-icon" size={18} /> : <Coins size={18} />}
-          {spinning ? "Обертання…" : "Крутити слоти"}
+          {spinning ? t.spinning : t.spin}
         </button>
       </div>
 
-      <p className="slot-message" aria-live="polite">{message}</p>
+      <p className="slot-message" aria-live="polite">{message ?? t.initial}</p>
     </section>
   );
 }

@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { useI18n } from "@/components/i18n-provider";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
 const sectors = [
@@ -28,6 +29,10 @@ const sectors = [
 
 const bets = [50, 100, 250, 500];
 const guestOutcomes = [0, 3, 7, 0, 2, 3, 6, 0, 4, 7, 2, 0, 1, 3];
+const copy = {
+  en: { initial: "Choose a bet in virtual coins and spin the wheel.", insufficient: "Not enough coins. Lower your bet or collect the daily reward.", spinningMessage: "The wheel is searching for your sector…", error: "The spin could not be completed. Please try again.", win: (multiplier: number, amount: string) => `Great! The ×${multiplier} sector awarded ${amount} coins.`, lose: "No reward this time. The next spin could be yours.", temple: "Temple of fortune", balance: "Balance", lastWin: "Last win", decrease: "Decrease bet", increase: "Increase bet", bet: "Bet", spinning: "Spinning…", spin: "Spin the wheel" },
+  cs: { initial: "Vyber sázku ve virtuálních mincích a roztoč kolo.", insufficient: "Nemáš dost mincí. Sniž sázku nebo si vyzvedni denní odměnu.", spinningMessage: "Kolo hledá tvůj sektor…", error: "Roztočení se nepodařilo. Zkus to znovu.", win: (multiplier: number, amount: string) => `Skvělé! Sektor ×${multiplier} přinesl ${amount} mincí.`, lose: "Tentokrát bez odměny. Příští roztočení může být tvoje.", temple: "Chrám štěstí", balance: "Zůstatek", lastWin: "Poslední výhra", decrease: "Snížit sázku", increase: "Zvýšit sázku", bet: "Sázka", spinning: "Roztáčí se…", spin: "Roztočit kolo" },
+} as const;
 
 type SpinPayload = {
   sector_index: number;
@@ -45,12 +50,14 @@ function isSpinPayload(value: unknown): value is SpinPayload {
 }
 
 export function JungleWheel() {
+  const { locale, numberLocale } = useI18n();
+  const t = copy[locale];
   const { user, profile, setGuestBalance, refreshProfile } = useAuth();
   const [betIndex, setBetIndex] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [lastWin, setLastWin] = useState<number | null>(null);
-  const [message, setMessage] = useState("Обери ставку у віртуальних монетах і крути колесо.");
+  const [message, setMessage] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const bet = bets[betIndex];
@@ -66,13 +73,13 @@ export function JungleWheel() {
   async function spin() {
     if (spinning) return;
     if (profile.balance < bet) {
-      setMessage("Недостатньо монет. Зменш ставку або забери щоденну нагороду.");
+      setMessage(t.insufficient);
       return;
     }
 
     setSpinning(true);
     setLastWin(null);
-    setMessage("Колесо шукає твій сектор…");
+    setMessage(t.spinningMessage);
 
     let result: SpinPayload;
     const supabase = getSupabaseBrowserClient();
@@ -81,7 +88,7 @@ export function JungleWheel() {
       const { data, error } = await supabase.rpc("spin_jungle_wheel", { p_bet: bet });
       if (error || !isSpinPayload(data)) {
         setSpinning(false);
-        setMessage(error?.message ?? "Не вдалося виконати обертання. Спробуй ще раз.");
+        setMessage(error?.message ?? t.error);
         return;
       }
       result = data;
@@ -105,8 +112,8 @@ export function JungleWheel() {
       setLastWin(result.win);
       setMessage(
         result.win > 0
-          ? `Чудово! Сектор ×${result.multiplier} приніс ${result.win.toLocaleString("uk-UA")} монет.`
-          : "Цього разу без нагороди. Наступне обертання може бути твоїм.",
+          ? t.win(result.multiplier, result.win.toLocaleString(numberLocale))
+          : t.lose,
       );
       setSpinning(false);
     }, 4300);
@@ -137,17 +144,17 @@ export function JungleWheel() {
 
       <div className="wheel-stage-title">
         <span>Jungle Wheel</span>
-        <strong>Храм удачі</strong>
+        <strong>{t.temple}</strong>
       </div>
 
       <div className="wheel-balance-row">
         <div className="wheel-metric">
-          <span>Баланс</span>
-          <strong>{profile.balance.toLocaleString("uk-UA")} 🪙</strong>
+          <span>{t.balance}</span>
+          <strong>{profile.balance.toLocaleString(numberLocale)} 🪙</strong>
         </div>
         <div className="wheel-metric" style={{ textAlign: "right" }}>
-          <span>Останній виграш</span>
-          <strong>{lastWin === null ? "—" : `+${lastWin.toLocaleString("uk-UA")}`}</strong>
+          <span>{t.lastWin}</span>
+          <strong>{lastWin === null ? "—" : `+${lastWin.toLocaleString(numberLocale)}`}</strong>
         </div>
       </div>
 
@@ -188,7 +195,7 @@ export function JungleWheel() {
         </div>
         {lastWin !== null && lastWin > 0 ? (
           <div className="wheel-win-burst" aria-hidden="true">
-            <span>+{lastWin.toLocaleString("uk-UA")}</span>
+            <span>+{lastWin.toLocaleString(numberLocale)}</span>
           </div>
         ) : null}
       </div>
@@ -197,16 +204,16 @@ export function JungleWheel() {
         <div className="bet-control">
           <button
             type="button"
-            aria-label="Зменшити ставку"
+            aria-label={t.decrease}
             disabled={spinning}
             onClick={() => setBetIndex((value) => Math.max(0, value - 1))}
           >
             <Minus size={17} />
           </button>
-          <span>Ставка<strong>{bet.toLocaleString("uk-UA")} 🪙</strong></span>
+          <span>{t.bet}<strong>{bet.toLocaleString(numberLocale)} 🪙</strong></span>
           <button
             type="button"
-            aria-label="Збільшити ставку"
+            aria-label={t.increase}
             disabled={spinning}
             onClick={() => setBetIndex((value) => Math.min(bets.length - 1, value + 1))}
           >
@@ -215,10 +222,10 @@ export function JungleWheel() {
         </div>
         <button type="button" className="button button-primary jungle-spin-button" disabled={spinning} onClick={spin}>
           {spinning ? <RotateCw className="spin-icon" size={18} /> : <Coins size={18} />}
-          {spinning ? "Крутиться…" : "Крутити колесо"}
+          {spinning ? t.spinning : t.spin}
         </button>
       </div>
-      <p className="win-message" aria-live="polite">{message}</p>
+      <p className="win-message" aria-live="polite">{message ?? t.initial}</p>
     </div>
   );
 }

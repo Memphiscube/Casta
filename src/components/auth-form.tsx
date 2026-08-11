@@ -5,9 +5,15 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { useI18n } from "@/components/i18n-provider";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
 export function AuthForm() {
+  const { locale } = useI18n();
+  const t = {
+    en: { access: "Club access", loginTitle: "Welcome back", signupTitle: "Join CASTA", loginLead: "Sign in to continue your streak and sync your collection.", signupLead: "Create a free account and keep your progress across devices.", login: "Sign in", signup: "Register", name: "Club name", example: "For example, WildFox", password: "Password", passwordHint: "At least 6 characters", consent: "I am 18 or older. I understand that CASTA does not offer real-money betting or winnings.", wait: "Please wait…", create: "Create account", missing: "Supabase keys are not available in this environment yet. Guest play works without signing in.", age: "Confirm that you are at least 18 years old.", success: "Account created. Check your inbox if email confirmation is enabled in Supabase.", demo: "You can play the local demo as a guest. On Vercel, this form activates when the Supabase variables are configured." },
+    cs: { access: "Vstup do klubu", loginTitle: "Vítej zpět", signupTitle: "Přidej se ke CASTA", loginLead: "Přihlas se, pokračuj v sérii a synchronizuj svou sbírku.", signupLead: "Vytvoř si bezplatný účet a uchovej pokrok na všech zařízeních.", login: "Přihlásit se", signup: "Registrace", name: "Jméno v klubu", example: "Například WildFox", password: "Heslo", passwordHint: "Alespoň 6 znaků", consent: "Je mi 18 let nebo více. Rozumím, že CASTA nenabízí sázky ani výhry za skutečné peníze.", wait: "Počkej prosím…", create: "Vytvořit účet", missing: "Klíče Supabase zatím nejsou v tomto prostředí dostupné. Režim hosta funguje bez přihlášení.", age: "Potvrď, že ti je alespoň 18 let.", success: "Účet byl vytvořen. Pokud je v Supabase zapnuté potvrzení e-mailu, zkontroluj svou schránku.", demo: "Místní demo můžeš hrát jako host. Na Vercelu se formulář aktivuje po nastavení proměnných Supabase." },
+  }[locale];
   const router = useRouter();
   const { configured } = useAuth();
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -24,11 +30,11 @@ export function AuthForm() {
 
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setMessage({ type: "error", text: "Supabase-ключі ще не доступні в цьому середовищі. Гостьова гра працює без входу." });
+      setMessage({ type: "error", text: t.missing });
       return;
     }
     if (mode === "signup" && !accepted) {
-      setMessage({ type: "error", text: "Підтвердь, що тобі виповнилося 18 років." });
+      setMessage({ type: "error", text: t.age });
       return;
     }
 
@@ -57,27 +63,27 @@ export function AuthForm() {
     if (error) {
       setMessage({ type: "error", text: error.message });
     } else {
-      setMessage({ type: "success", text: "Акаунт створено. Перевір пошту, якщо підтвердження email увімкнене в Supabase." });
+      setMessage({ type: "success", text: t.success });
     }
     setSubmitting(false);
   }
 
   return (
     <section className="auth-panel">
-      <span className="eyebrow"><Sparkles size={15} /> Club access</span>
-      <h1>{mode === "login" ? "Раді бачити знову" : "Приєднуйся до CASTA"}</h1>
-      <p>{mode === "login" ? "Увійди, щоб продовжити свою серію та синхронізувати колекцію." : "Створи безкоштовний акаунт і збережи прогрес між пристроями."}</p>
+      <span className="eyebrow"><Sparkles size={15} /> {t.access}</span>
+      <h1>{mode === "login" ? t.loginTitle : t.signupTitle}</h1>
+      <p>{mode === "login" ? t.loginLead : t.signupLead}</p>
 
       <div className="auth-tabs">
-        <button type="button" className={mode === "login" ? "auth-tab active" : "auth-tab"} onClick={() => setMode("login")}>Вхід</button>
-        <button type="button" className={mode === "signup" ? "auth-tab active" : "auth-tab"} onClick={() => setMode("signup")}>Реєстрація</button>
+        <button type="button" className={mode === "login" ? "auth-tab active" : "auth-tab"} onClick={() => setMode("login")}>{t.login}</button>
+        <button type="button" className={mode === "signup" ? "auth-tab active" : "auth-tab"} onClick={() => setMode("signup")}>{t.signup}</button>
       </div>
 
       <form className="auth-form" onSubmit={submit}>
         {mode === "signup" && (
           <div className="field">
-            <label htmlFor="username">Ім’я в клубі</label>
-            <input id="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="Наприклад, WildFox" maxLength={30} />
+            <label htmlFor="username">{t.name}</label>
+            <input id="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder={t.example} maxLength={30} />
           </div>
         )}
         <div className="field">
@@ -85,19 +91,19 @@ export function AuthForm() {
           <input id="email" type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" />
         </div>
         <div className="field">
-          <label htmlFor="password">Пароль</label>
-          <input id="password" type="password" required minLength={6} autoComplete={mode === "login" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Щонайменше 6 символів" />
+          <label htmlFor="password">{t.password}</label>
+          <input id="password" type="password" required minLength={6} autoComplete={mode === "login" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder={t.passwordHint} />
         </div>
         {mode === "signup" && (
           <label className="consent-row">
             <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} />
-            <span>Мені виповнилося 18 років. Я розумію, що CASTA не пропонує ставки або виграші в реальних грошах.</span>
+            <span>{t.consent}</span>
           </label>
         )}
         {message && <p className={`form-message ${message.type}`} role="status">{message.text}</p>}
-        {!configured && !message && <p className="form-message">У локальному демо можна грати без входу. На Vercel форма активується після підстановки Supabase-змінних.</p>}
+        {!configured && !message && <p className="form-message">{t.demo}</p>}
         <button type="submit" className="button button-primary" disabled={submitting}>
-          {submitting ? "Зачекай…" : mode === "login" ? "Увійти" : "Створити акаунт"}
+          {submitting ? t.wait : mode === "login" ? t.login : t.create}
           {!submitting && <ArrowRight size={18} />}
         </button>
       </form>
@@ -106,11 +112,15 @@ export function AuthForm() {
 }
 
 export function AuthAside() {
+  const { locale } = useI18n();
+  const t = locale === "cs"
+    ? { title: <>Tvůj pokrok.<br />Tvoje sbírka.<br />Tvoje CASTA.</>, text: "Jeden účet uchová zůstatek, série, úspěchy i kosmetické předměty. Skutečné peníze se zde nepoužívají." }
+    : { title: <>Your progress.<br />Your collection.<br />Your CASTA.</>, text: "One account keeps your balance, streaks, achievements and cosmetic items. Real money is never used here." };
   return (
     <aside className="auth-aside">
       <CheckCircle2 size={32} color="var(--lime)" />
-      <h2>Твій прогрес.<br />Твоя колекція.<br />Твоя CASTA.</h2>
-      <p>Один акаунт зберігає баланс, серії, досягнення та косметичні предмети. Реальні гроші тут не використовуються.</p>
+      <h2>{t.title}</h2>
+      <p>{t.text}</p>
     </aside>
   );
 }

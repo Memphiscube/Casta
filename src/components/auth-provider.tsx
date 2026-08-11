@@ -32,7 +32,7 @@ type AuthContextValue = {
 };
 
 const defaultProfile: PlayerProfile = {
-  username: "Мандрівник",
+  username: "Traveler",
   level: 7,
   xp: 1640,
   balance: 5000,
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ]);
 
       setProfile({
-        username: profileRow?.username ?? fallbackEmail?.split("@")[0] ?? "Гравець",
+        username: profileRow?.username ?? fallbackEmail?.split("@")[0] ?? "Player",
         level: profileRow?.level ?? 1,
         xp: profileRow?.xp ?? 0,
         balance: walletRow?.balance ?? 5000,

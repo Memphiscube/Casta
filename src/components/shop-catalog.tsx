@@ -4,6 +4,7 @@ import { Check, Coins, Frame, Palette, ShieldCheck, Sparkles } from "lucide-reac
 import { useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { localize, useI18n } from "@/components/i18n-provider";
 import { shopItems } from "@/lib/data";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
@@ -21,15 +22,20 @@ function isPurchasePayload(value: unknown): value is PurchasePayload {
 }
 
 export function ShopCatalog() {
+  const { locale, numberLocale } = useI18n();
+  const t = {
+    en: { initial: "All items are cosmetic and do not affect game results.", insufficient: "Not enough coins. Collect the daily reward or play Jungle Wheel.", error: "The item could not be added to your collection.", added: "The item was added to your collection.", owned: "In collection", adding: "Adding…", get: "Get item", wallet: "Your wallet", available: "Available", notice: "There are no payments in the shop. You can only spend virtual coins earned in the game." },
+    cs: { initial: "Všechny předměty jsou kosmetické a neovlivňují výsledky her.", insufficient: "Nemáš dost mincí. Vyzvedni si denní odměnu nebo si zahraj Jungle Wheel.", error: "Předmět se nepodařilo přidat do sbírky.", added: "Předmět byl přidán do tvé sbírky.", owned: "Ve sbírce", adding: "Přidáváme…", get: "Získat", wallet: "Tvoje peněženka", available: "K dispozici", notice: "V obchodě nejsou žádné platby. Utratit lze pouze virtuální mince získané ve hře." },
+  }[locale];
   const { user, profile, setGuestBalance, refreshProfile } = useAuth();
   const [owned, setOwned] = useState<string[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
-  const [message, setMessage] = useState("Усі предмети косметичні й не впливають на результат гри.");
+  const [message, setMessage] = useState<string | null>(null);
 
   async function purchase(slug: string, price: number) {
     if (busy || owned.includes(slug)) return;
     if (profile.balance < price) {
-      setMessage("Недостатньо монет. Забери щоденну нагороду або зіграй у Jungle Wheel.");
+      setMessage(t.insufficient);
       return;
     }
 
@@ -39,7 +45,7 @@ export function ShopCatalog() {
     if (user && supabase) {
       const { data, error } = await supabase.rpc("purchase_shop_item", { p_item_slug: slug });
       if (error || !isPurchasePayload(data)) {
-        setMessage(error?.message ?? "Не вдалося додати предмет до колекції.");
+        setMessage(error?.message ?? t.error);
         setBusy(null);
         return;
       }
@@ -49,7 +55,7 @@ export function ShopCatalog() {
     }
 
     setOwned((current) => [...current, slug]);
-    setMessage("Предмет додано до твоєї колекції.");
+    setMessage(t.added);
     setBusy(null);
   }
 
@@ -65,17 +71,17 @@ export function ShopCatalog() {
                 <span className="shop-art-symbol"><Icon size={43} /></span>
               </div>
               <div className="shop-card-body">
-                <span>{item.type}</span>
+                <span>{localize(item.type, locale)}</span>
                 <h3>{item.name}</h3>
                 <div className="shop-card-actions">
-                  <strong className="price"><Coins size={17} /> {item.price.toLocaleString("uk-UA")}</strong>
+                  <strong className="price"><Coins size={17} /> {item.price.toLocaleString(numberLocale)}</strong>
                   <button
                     type="button"
                     className="button button-secondary"
                     disabled={busy === item.slug || isOwned}
                     onClick={() => void purchase(item.slug, item.price)}
                   >
-                    {isOwned ? <><Check size={17} /> У колекції</> : busy === item.slug ? "Додаємо…" : "Отримати"}
+                    {isOwned ? <><Check size={17} /> {t.owned}</> : busy === item.slug ? t.adding : t.get}
                   </button>
                 </div>
               </div>
@@ -85,15 +91,15 @@ export function ShopCatalog() {
       </div>
 
       <aside className="shop-summary">
-        <h2>Твій гаманець</h2>
+        <h2>{t.wallet}</h2>
         <div className="summary-balance">
-          <span>Доступно</span>
-          <strong>{profile.balance.toLocaleString("uk-UA")} 🪙</strong>
+          <span>{t.available}</span>
+          <strong>{profile.balance.toLocaleString(numberLocale)} 🪙</strong>
         </div>
-        <p>{message}</p>
+        <p>{message ?? t.initial}</p>
         <div className="notice-card">
           <ShieldCheck size={18} />
-          <span>У магазині немає платежів. Тут можна витрачати тільки зароблені virtual coins.</span>
+          <span>{t.notice}</span>
         </div>
       </aside>
     </div>
