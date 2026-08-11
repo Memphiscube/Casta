@@ -68,7 +68,7 @@ export function GoldenReefSlots() {
   const [spinning, setSpinning] = useState(false);
   const [lastWin, setLastWin] = useState<number | null>(null);
   const [winningLines, setWinningLines] = useState<ReefWinningLine[]>([]);
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<LocalizedText | null>(null);
   const shuffleTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const bet = bets[betIndex];
   const winningCells = useMemo(() => new Set(winningLines.flatMap((line) => line.cells)), [winningLines]);
@@ -79,12 +79,12 @@ export function GoldenReefSlots() {
 
   async function spin() {
     if (spinning) return;
-    if (profile.balance < bet) { setMessage(t.insufficient); return; }
+    if (profile.balance < bet) { setMessage({ en: copy.en.insufficient, cs: copy.cs.insufficient }); return; }
 
     setSpinning(true);
     setLastWin(null);
     setWinningLines([]);
-    setMessage(t.spinningMessage);
+    setMessage({ en: copy.en.spinningMessage, cs: copy.cs.spinningMessage });
     const startedAt = Date.now();
     shuffleTimer.current = setInterval(() => setGrid(createRandomReefGrid()), 90);
 
@@ -97,7 +97,9 @@ export function GoldenReefSlots() {
         shuffleTimer.current = null;
         setSpinning(false);
         setGrid(initialReefGrid);
-        setMessage(error?.message ?? t.error);
+        setMessage(error?.message
+          ? { en: error.message, cs: error.message }
+          : { en: copy.en.error, cs: copy.cs.error });
         return;
       }
       result = data;
@@ -113,8 +115,11 @@ export function GoldenReefSlots() {
     setLastWin(result.win);
     if (user) await refreshProfile(); else setGuestBalance(result.balance);
     setMessage(result.win > 0
-      ? t.win(result.win.toLocaleString(numberLocale), result.winning_lines.length, result.multiplier)
-      : t.lose);
+      ? {
+          en: copy.en.win(result.win.toLocaleString("en-US"), result.winning_lines.length, result.multiplier),
+          cs: copy.cs.win(result.win.toLocaleString("cs-CZ"), result.winning_lines.length, result.multiplier),
+        }
+      : { en: copy.en.lose, cs: copy.cs.lose });
     setSpinning(false);
   }
 
@@ -171,7 +176,7 @@ export function GoldenReefSlots() {
           {spinning ? <Sparkles className="spin-icon" size={18} /> : <Coins size={18} />}{spinning ? t.spinning : t.spin}
         </button>
       </div>
-      <p className="slot-message reef-message" aria-live="polite">{message ?? t.initial}</p>
+      <p className="slot-message reef-message" aria-live="polite">{message?.[locale] ?? t.initial}</p>
     </section>
   );
 }
