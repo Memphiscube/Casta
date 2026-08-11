@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import {
   ArrowLeft,
   Cherry,
@@ -11,19 +12,22 @@ import {
 import Link from "next/link";
 
 import { CherryClubSlots } from "@/components/cherry-club-slots";
+import { useI18n } from "@/components/i18n-provider";
 
-export const metadata: Metadata = {
-  title: "Cherry Club",
-  description: "Безкоштовні слоти Cherry Club 5×5 із віртуальними монетами CASTA.",
-};
+const copy = {
+  en: { back: "Back to games", guest: "Guest mode available", how: "How to play", grid: "The 5×5 grid uses 10 fixed winning lines.", match: "Match 3 to 5 identical symbols in a row, starting from the left.", balance: "Your bet and winnings update the shared profile balance immediately.", server: "For signed-in players, Supabase processes results and the wallet on the server.", best: "Best combination", multiplier: "×25 of your bet on one line", notice: "This is a social casino. There are no real-money bets, coin purchases or cash prizes." },
+  cs: { back: "Zpět ke hrám", guest: "Režim hosta je dostupný", how: "Jak hrát", grid: "Mřížka 5×5 používá 10 pevných výherních linií.", match: "Spoj 3 až 5 stejných symbolů v řadě, počínaje zleva.", balance: "Sázka a výhra ihned aktualizují společný zůstatek profilu.", server: "U přihlášených hráčů zpracovává výsledky a peněženku server Supabase.", best: "Nejlepší kombinace", multiplier: "×25 sázky na jedné linii", notice: "Toto je social casino. Nejsou zde sázky za skutečné peníze, nákup mincí ani peněžní výhry." },
+} as const;
 
 export default function CherryClubPage() {
+  const { locale } = useI18n();
+  const t = copy[locale];
   return (
     <div className="page-shell compact cherry-game-page">
       <div className="site-container">
         <div className="game-page-head">
-          <Link href="/games" className="back-link"><ArrowLeft size={17} /> До каталогу</Link>
-          <span className="game-mode-pill">Гостьовий режим доступний</span>
+          <Link href="/games" className="back-link"><ArrowLeft size={17} /> {t.back}</Link>
+          <span className="game-mode-pill">{t.guest}</span>
         </div>
 
         <div className="wheel-layout cherry-layout">
@@ -31,40 +35,37 @@ export default function CherryClubPage() {
 
           <aside className="side-panel cherry-side-panel">
             <span className="eyebrow"><Cherry size={15} /> Cherry Club</span>
-            <h2>Як грати</h2>
+            <h2>{t.how}</h2>
             <div className="rules-list">
               <div className="rule-item">
                 <span className="rule-icon"><Grid3X3 size={17} /></span>
-                <span>На полі 5×5 працюють 10 фіксованих виграшних ліній.</span>
+                <span>{t.grid}</span>
               </div>
               <div className="rule-item">
                 <span className="rule-icon"><Trophy size={17} /></span>
-                <span>Збери від 3 до 5 однакових символів поспіль, починаючи зліва.</span>
+                <span>{t.match}</span>
               </div>
               <div className="rule-item">
                 <span className="rule-icon"><Coins size={17} /></span>
-                <span>Ставка й виграш одразу змінюють спільний баланс профілю.</span>
+                <span>{t.balance}</span>
               </div>
               <div className="rule-item">
                 <span className="rule-icon"><ShieldCheck size={17} /></span>
-                <span>Для акаунтів результат і гаманець обробляються на сервері Supabase.</span>
+                <span>{t.server}</span>
               </div>
             </div>
 
             <div className="side-divider" />
 
             <div className="cherry-prize-card">
-              <span>Найкраща комбінація</span>
+              <span>{t.best}</span>
               <strong>7 7 7 7 7</strong>
-              <small>×25 від ставки за одну лінію</small>
+              <small>{t.multiplier}</small>
             </div>
 
             <div className="notice-card">
               <CircleDollarSign size={19} />
-              <span>
-                Це social casino. У грі немає ставок реальними грошима,
-                купівлі монет або виведення призів.
-              </span>
+              <span>{t.notice}</span>
             </div>
           </aside>
         </div>
