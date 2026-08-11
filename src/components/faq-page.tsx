@@ -137,7 +137,7 @@ export function FaqPage() {
   }
 
   return (
-    <main className="faq-page">
+    <div className="faq-page">
       <section className="faq-hero">
         <div className="site-container faq-hero-inner">
           <span className="eyebrow"><CircleHelp size={16} /> {copy.eyebrow}</span>
@@ -197,6 +197,6 @@ export function FaqPage() {
           </div>
         </aside>
       </section>
-    </main>
+    </div>
   );
 }
