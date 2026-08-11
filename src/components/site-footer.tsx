@@ -15,7 +15,7 @@ const footerCopy = {
     help: "Help & support:",
     helpLabel: "Help and support websites",
     adultLabel: "For adults aged 18 and over",
-    links: ["How it works", "Games", "Rewards", "Account"],
+    links: ["How it works", "Games", "Rewards", "Account", "Privacy Policy"],
   },
   cs: {
     intro: "Social casino pro odpočinek, sbírky a přátelské soutěžení.",
@@ -25,7 +25,7 @@ const footerCopy = {
     help: "Pomoc a podpora:",
     helpLabel: "Weby pomoci a podpory",
     adultLabel: "Pro dospělé od 18 let",
-    links: ["Jak to funguje", "Hry", "Odměny", "Účet"],
+    links: ["Jak to funguje", "Hry", "Odměny", "Účet", "Ochrana soukromí"],
   },
 } as const;
 
@@ -90,6 +90,7 @@ export function SiteFooter() {
           <Link href="/games">{copy.links[1]}</Link>
           <Link href="/rewards">{copy.links[2]}</Link>
           <Link href="/login">{copy.links[3]}</Link>
+          <Link href="/privacy">{copy.links[4]}</Link>
         </div>
       </div>
     </footer>
