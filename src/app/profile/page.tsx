@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { ProfileDashboard } from "@/components/profile-dashboard";
 
 export const metadata: Metadata = {
-  title: "Профіль",
-  description: "Прогрес, баланс і досягнення гравця CASTA.",
+  title: "Profile",
+  description: "CASTA player progress, balance and achievements.",
 };
 
 export default function ProfilePage() {
