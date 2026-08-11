@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 import { AuthForm } from "@/components/auth-form";
 import { useI18n } from "@/components/i18n-provider";
@@ -31,9 +32,9 @@ export function AuthModal({ mode, open, onClose }: AuthModalProps) {
     };
   }, [onClose, open]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div className="auth-modal-backdrop" role="presentation" onMouseDown={(event) => {
       if (event.target === event.currentTarget) onClose();
     }}>
@@ -44,6 +45,7 @@ export function AuthModal({ mode, open, onClose }: AuthModalProps) {
         </div>
         <AuthForm key={mode} initialMode={mode} presentation="modal" onAuthenticated={onClose} />
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
